@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct rithnnnApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
+    var player = Player()
+    
     var body: some Scene {
         DocumentGroup(newDocument: rithnnnDocument()) { file in
-            ContentView(document: file.$document)
+            ContentView(document: file.$document, player: player)
         }
     }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,18 @@
 		ACE2AE2926EC961700775DB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFC26EC961600775DB1 /* ContentView.swift */; };
 		ACE2AE2A26EC961700775DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACE2ADFD26EC961700775DB1 /* Assets.xcassets */; };
 		ACE2AE2B26EC961700775DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACE2ADFD26EC961700775DB1 /* Assets.xcassets */; };
+		ACE2AE4D26EC9E0800775DB1 /* FakeEndlesssApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AE4C26EC9E0800775DB1 /* FakeEndlesssApp.swift */; };
+		ACE2AE4F26EC9E0800775DB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AE4E26EC9E0800775DB1 /* ContentView.swift */; };
+		ACE2AE5126EC9E0A00775DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACE2AE5026EC9E0A00775DB1 /* Assets.xcassets */; };
+		ACE2AE5426EC9E0A00775DB1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACE2AE5326EC9E0A00775DB1 /* Preview Assets.xcassets */; };
+		ACE2AE6B26EC9EBE00775DB1 /* Quantize-Free Zone - michaelforrest - 140BPM - 2021-09-10-20-17.zip in Resources */ = {isa = PBXBuildFile; fileRef = ACE2AE6A26EC9EBE00775DB1 /* Quantize-Free Zone - michaelforrest - 140BPM - 2021-09-10-20-17.zip */; };
+		ACE2AE7226EC9EE800775DB1 /* Quantize-Free Zone - fancyspectacles - 140BPM - 2021-09-10-19-37.zip in Resources */ = {isa = PBXBuildFile; fileRef = ACE2AE7126EC9EE800775DB1 /* Quantize-Free Zone - fancyspectacles - 140BPM - 2021-09-10-19-37.zip */; };
+		ACE2AE7F26ECA09C00775DB1 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AE7E26ECA09C00775DB1 /* ShareViewController.swift */; };
+		ACE2AE8226ECA09C00775DB1 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACE2AE8026ECA09C00775DB1 /* MainInterface.storyboard */; };
+		ACE2AE8626ECA09C00775DB1 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = ACE2AE7C26ECA09C00775DB1 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ACE2AF2526ECB75400775DB1 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = ACE2AF2426ECB75400775DB1 /* ZIPFoundation */; };
+		ACE2AF3426ECBAAC00775DB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AF2C26ECBA9000775DB1 /* AppDelegate.swift */; };
+		ACE2AF5426ECBB7B00775DB1 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AF4C26ECBB6E00775DB1 /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +46,28 @@
 			remoteGlobalIDString = ACE2AE0926EC961700775DB1;
 			remoteInfo = "rithnnn (macOS)";
 		};
+		ACE2AE8426ECA09C00775DB1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ACE2ADF526EC961600775DB1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ACE2AE7B26ECA09C00775DB1;
+			remoteInfo = ShareExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ACE2AE8A26ECA09C00775DB1 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				ACE2AE8626ECA09C00775DB1 /* ShareExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rithnnnApp.swift; sourceTree = "<group>"; };
@@ -52,6 +85,22 @@
 		ACE2AE1D26EC961700775DB1 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE2AE2126EC961700775DB1 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		ACE2AE2326EC961700775DB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACE2AE4A26EC9E0800775DB1 /* FakeEndlesss.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FakeEndlesss.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACE2AE4C26EC9E0800775DB1 /* FakeEndlesssApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeEndlesssApp.swift; sourceTree = "<group>"; };
+		ACE2AE4E26EC9E0800775DB1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		ACE2AE5026EC9E0A00775DB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ACE2AE5326EC9E0A00775DB1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		ACE2AE5526EC9E0A00775DB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACE2AE6A26EC9EBE00775DB1 /* Quantize-Free Zone - michaelforrest - 140BPM - 2021-09-10-20-17.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "Quantize-Free Zone - michaelforrest - 140BPM - 2021-09-10-20-17.zip"; sourceTree = "<group>"; };
+		ACE2AE7126EC9EE800775DB1 /* Quantize-Free Zone - fancyspectacles - 140BPM - 2021-09-10-19-37.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "Quantize-Free Zone - fancyspectacles - 140BPM - 2021-09-10-19-37.zip"; sourceTree = "<group>"; };
+		ACE2AE7C26ECA09C00775DB1 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACE2AE7E26ECA09C00775DB1 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		ACE2AE8126ECA09C00775DB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		ACE2AE8326ECA09C00775DB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACE2AEFC26ECA9EE00775DB1 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
+		ACE2AF0326ECAA0C00775DB1 /* rithnnn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = rithnnn.entitlements; sourceTree = "<group>"; };
+		ACE2AF2C26ECBA9000775DB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		ACE2AF4C26ECBB6E00775DB1 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACE2AF2526ECB75400775DB1 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,17 +133,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ACE2AE4726EC9E0800775DB1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACE2AE7926ECA09C00775DB1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		ACE2ADF426EC961600775DB1 = {
 			isa = PBXGroup;
 			children = (
+				ACE2AF0326ECAA0C00775DB1 /* rithnnn.entitlements */,
 				ACE2ADF926EC961600775DB1 /* Shared */,
 				ACE2AE0426EC961700775DB1 /* iOS */,
 				ACE2AE0B26EC961700775DB1 /* macOS */,
 				ACE2AE1526EC961700775DB1 /* Tests iOS */,
 				ACE2AE2026EC961700775DB1 /* Tests macOS */,
+				ACE2AE4B26EC9E0800775DB1 /* FakeEndlesss */,
+				ACE2AE7D26ECA09C00775DB1 /* ShareExtension */,
 				ACE2AE0326EC961700775DB1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -101,10 +168,10 @@
 		ACE2ADF926EC961600775DB1 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */,
-				ACE2ADFB26EC961600775DB1 /* rithnnnDocument.swift */,
-				ACE2ADFC26EC961600775DB1 /* ContentView.swift */,
-				ACE2ADFD26EC961700775DB1 /* Assets.xcassets */,
+				ACE2AF4526ECBB5E00775DB1 /* App */,
+				ACE2AF4326ECBB4000775DB1 /* Audio */,
+				ACE2AF4226ECBB3B00775DB1 /* Models */,
+				ACE2AF4126ECBB3300775DB1 /* Views */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -116,6 +183,8 @@
 				ACE2AE0A26EC961700775DB1 /* rithnnn.app */,
 				ACE2AE1226EC961700775DB1 /* Tests iOS.xctest */,
 				ACE2AE1D26EC961700775DB1 /* Tests macOS.xctest */,
+				ACE2AE4A26EC9E0800775DB1 /* FakeEndlesss.app */,
+				ACE2AE7C26ECA09C00775DB1 /* ShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -155,6 +224,73 @@
 			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
+		ACE2AE4B26EC9E0800775DB1 /* FakeEndlesss */ = {
+			isa = PBXGroup;
+			children = (
+				ACE2AE4C26EC9E0800775DB1 /* FakeEndlesssApp.swift */,
+				ACE2AE6A26EC9EBE00775DB1 /* Quantize-Free Zone - michaelforrest - 140BPM - 2021-09-10-20-17.zip */,
+				ACE2AE7126EC9EE800775DB1 /* Quantize-Free Zone - fancyspectacles - 140BPM - 2021-09-10-19-37.zip */,
+				ACE2AE4E26EC9E0800775DB1 /* ContentView.swift */,
+				ACE2AE5026EC9E0A00775DB1 /* Assets.xcassets */,
+				ACE2AE5526EC9E0A00775DB1 /* Info.plist */,
+				ACE2AE5226EC9E0A00775DB1 /* Preview Content */,
+			);
+			path = FakeEndlesss;
+			sourceTree = "<group>";
+		};
+		ACE2AE5226EC9E0A00775DB1 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				ACE2AE5326EC9E0A00775DB1 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		ACE2AE7D26ECA09C00775DB1 /* ShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				ACE2AEFC26ECA9EE00775DB1 /* ShareExtension.entitlements */,
+				ACE2AE7E26ECA09C00775DB1 /* ShareViewController.swift */,
+				ACE2AE8026ECA09C00775DB1 /* MainInterface.storyboard */,
+				ACE2AE8326ECA09C00775DB1 /* Info.plist */,
+			);
+			path = ShareExtension;
+			sourceTree = "<group>";
+		};
+		ACE2AF4126ECBB3300775DB1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ACE2ADFC26EC961600775DB1 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ACE2AF4226ECBB3B00775DB1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ACE2ADFB26EC961600775DB1 /* rithnnnDocument.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		ACE2AF4326ECBB4000775DB1 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				ACE2AF4C26ECBB6E00775DB1 /* Player.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		ACE2AF4526ECBB5E00775DB1 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				ACE2AF2C26ECBA9000775DB1 /* AppDelegate.swift */,
+				ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */,
+				ACE2ADFD26EC961700775DB1 /* Assets.xcassets */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -165,12 +301,17 @@
 				ACE2ADFE26EC961700775DB1 /* Sources */,
 				ACE2ADFF26EC961700775DB1 /* Frameworks */,
 				ACE2AE0026EC961700775DB1 /* Resources */,
+				ACE2AE8A26ECA09C00775DB1 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				ACE2AE8526ECA09C00775DB1 /* PBXTargetDependency */,
 			);
 			name = "rithnnn (iOS)";
+			packageProductDependencies = (
+				ACE2AF2426ECB75400775DB1 /* ZIPFoundation */,
+			);
 			productName = "rithnnn (iOS)";
 			productReference = ACE2AE0226EC961700775DB1 /* rithnnn.app */;
 			productType = "com.apple.product-type.application";
@@ -228,6 +369,40 @@
 			productReference = ACE2AE1D26EC961700775DB1 /* Tests macOS.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		ACE2AE4926EC9E0800775DB1 /* FakeEndlesss */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACE2AE5626EC9E0A00775DB1 /* Build configuration list for PBXNativeTarget "FakeEndlesss" */;
+			buildPhases = (
+				ACE2AE4626EC9E0800775DB1 /* Sources */,
+				ACE2AE4726EC9E0800775DB1 /* Frameworks */,
+				ACE2AE4826EC9E0800775DB1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FakeEndlesss;
+			productName = FakeEndlesss;
+			productReference = ACE2AE4A26EC9E0800775DB1 /* FakeEndlesss.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ACE2AE7B26ECA09C00775DB1 /* ShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACE2AE8726ECA09C00775DB1 /* Build configuration list for PBXNativeTarget "ShareExtension" */;
+			buildPhases = (
+				ACE2AE7826ECA09C00775DB1 /* Sources */,
+				ACE2AE7926ECA09C00775DB1 /* Frameworks */,
+				ACE2AE7A26ECA09C00775DB1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShareExtension;
+			productName = ShareExtension;
+			productReference = ACE2AE7C26ECA09C00775DB1 /* ShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -251,6 +426,12 @@
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = ACE2AE0926EC961700775DB1;
 					};
+					ACE2AE4926EC9E0800775DB1 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					ACE2AE7B26ECA09C00775DB1 = {
+						CreatedOnToolsVersion = 12.4;
+					};
 				};
 			};
 			buildConfigurationList = ACE2ADF826EC961600775DB1 /* Build configuration list for PBXProject "rithnnn" */;
@@ -262,14 +443,19 @@
 				Base,
 			);
 			mainGroup = ACE2ADF426EC961600775DB1;
+			packageReferences = (
+				ACE2AF2326ECB75400775DB1 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+			);
 			productRefGroup = ACE2AE0326EC961700775DB1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				ACE2AE0126EC961700775DB1 /* rithnnn (iOS) */,
 				ACE2AE0926EC961700775DB1 /* rithnnn (macOS) */,
+				ACE2AE7B26ECA09C00775DB1 /* ShareExtension */,
 				ACE2AE1126EC961700775DB1 /* Tests iOS */,
 				ACE2AE1C26EC961700775DB1 /* Tests macOS */,
+				ACE2AE4926EC9E0800775DB1 /* FakeEndlesss */,
 			);
 		};
 /* End PBXProject section */
@@ -305,6 +491,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ACE2AE4826EC9E0800775DB1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACE2AE5426EC9E0A00775DB1 /* Preview Assets.xcassets in Resources */,
+				ACE2AE6B26EC9EBE00775DB1 /* Quantize-Free Zone - michaelforrest - 140BPM - 2021-09-10-20-17.zip in Resources */,
+				ACE2AE5126EC9E0A00775DB1 /* Assets.xcassets in Resources */,
+				ACE2AE7226EC9EE800775DB1 /* Quantize-Free Zone - fancyspectacles - 140BPM - 2021-09-10-19-37.zip in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACE2AE7A26ECA09C00775DB1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACE2AE8226ECA09C00775DB1 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -312,8 +517,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACE2AF3426ECBAAC00775DB1 /* AppDelegate.swift in Sources */,
 				ACE2AE2626EC961700775DB1 /* rithnnnDocument.swift in Sources */,
 				ACE2AE2426EC961700775DB1 /* rithnnnApp.swift in Sources */,
+				ACE2AF5426ECBB7B00775DB1 /* Player.swift in Sources */,
 				ACE2AE2826EC961700775DB1 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,6 +551,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ACE2AE4626EC9E0800775DB1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACE2AE4F26EC9E0800775DB1 /* ContentView.swift in Sources */,
+				ACE2AE4D26EC9E0800775DB1 /* FakeEndlesssApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACE2AE7826ECA09C00775DB1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACE2AE7F26ECA09C00775DB1 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -357,7 +581,23 @@
 			target = ACE2AE0926EC961700775DB1 /* rithnnn (macOS) */;
 			targetProxy = ACE2AE1E26EC961700775DB1 /* PBXContainerItemProxy */;
 		};
+		ACE2AE8526ECA09C00775DB1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ACE2AE7B26ECA09C00775DB1 /* ShareExtension */;
+			targetProxy = ACE2AE8426ECA09C00775DB1 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		ACE2AE8026ECA09C00775DB1 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ACE2AE8126ECA09C00775DB1 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		ACE2AE2C26EC961700775DB1 /* Debug */ = {
@@ -474,8 +714,10 @@
 		ACE2AE2F26EC961700775DB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = rithnnn.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TNRLJ4WU59;
 				ENABLE_PREVIEWS = YES;
@@ -496,8 +738,10 @@
 		ACE2AE3026EC961700775DB1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = rithnnn.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TNRLJ4WU59;
 				ENABLE_PREVIEWS = YES;
@@ -653,6 +897,98 @@
 			};
 			name = Release;
 		};
+		ACE2AE5726EC9E0A00775DB1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"FakeEndlesss/Preview Content\"";
+				DEVELOPMENT_TEAM = TNRLJ4WU59;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = FakeEndlesss/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = goodtohear.rithnnn.FakeEndlesss;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ACE2AE5826EC9E0A00775DB1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"FakeEndlesss/Preview Content\"";
+				DEVELOPMENT_TEAM = TNRLJ4WU59;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = FakeEndlesss/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = goodtohear.rithnnn.FakeEndlesss;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ACE2AE8826ECA09C00775DB1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TNRLJ4WU59;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = goodtohear.rithnnn.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ACE2AE8926ECA09C00775DB1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TNRLJ4WU59;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = goodtohear.rithnnn.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -701,7 +1037,44 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		ACE2AE5626EC9E0A00775DB1 /* Build configuration list for PBXNativeTarget "FakeEndlesss" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACE2AE5726EC9E0A00775DB1 /* Debug */,
+				ACE2AE5826EC9E0A00775DB1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ACE2AE8726ECA09C00775DB1 /* Build configuration list for PBXNativeTarget "ShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACE2AE8826ECA09C00775DB1 /* Debug */,
+				ACE2AE8926ECA09C00775DB1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ACE2AF2326ECB75400775DB1 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.12;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ACE2AF2426ECB75400775DB1 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACE2AF2326ECB75400775DB1 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ACE2ADF526EC961600775DB1 /* Project object */;
 }
