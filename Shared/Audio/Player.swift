@@ -50,7 +50,8 @@ class Player: ObservableObject{
     var document: rithnnnDocument?
     
     var debugString: String {
-        "\(AVAudioTime.seconds(forHostTime: slots.first?.node.lastRenderTime?.hostTime ?? 0))\n\(AVAudioTime.seconds(forHostTime: nextBarStartTime()?.hostTime ?? 0)) "
+        engine.isRunning ?
+            "\(AVAudioTime.seconds(forHostTime: slots.first?.node.lastRenderTime?.hostTime ?? 0))\n\(AVAudioTime.seconds(forHostTime: nextBarStartTime()?.hostTime ?? 0)) " : "Not Running"
     }
     
     // https://stackoverflow.com/a/52960011/191991

@@ -104,6 +104,7 @@ struct ContentView: View {
                         if let index =  document.unprocessedZips.firstIndex(of: rifff.zipURL){
                             document.unprocessedZips.remove(at:index)
                         }
+                        try? player.play(set: document)
                     }
                 }
                 try? self.player.play(set: document)

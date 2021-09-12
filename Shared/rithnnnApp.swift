@@ -15,7 +15,15 @@ struct rithnnnApp: App {
     
     var body: some Scene {
         DocumentGroup(newDocument: rithnnnDocument()) { file in
-            ContentView(document: file.$document, player: player)
+            ContentView(document: file.$document, player: player).onAppear{
+                RithnnnAppGroup.setLatest(
+                    document: RithnnnDocumentInfo(
+                        uuid: file.document.uuid.uuidString,
+                        title: file.fileURL?.deletingPathExtension().lastPathComponent ?? "New Document"
+                    )
+                )
+                RithnnnAppGroup.syncDocumentInfo()
+            }
         }
     }
 }

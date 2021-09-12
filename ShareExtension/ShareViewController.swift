@@ -7,10 +7,23 @@
 
 import UIKit
 import Social
-import MobileCoreServices
 
 class ShareViewController: SLComposeServiceViewController {
-
+    var selectDocumentItem: SLComposeSheetConfigurationItem?
+    override func loadView() {
+        super.loadView()
+        
+        
+        let item = SLComposeSheetConfigurationItem()
+        item?.title = "Set"
+        item?.value = "Quantize thingy"
+        item?.tapHandler = {
+            let controller = UITableViewController()
+            self.pushConfigurationViewController(controller)
+        }
+        self.selectDocumentItem = item
+    }
+    
     override func isContentValid() -> Bool {
         /* LOOKS LIKE **
          Optional<NSExtensionContext>
@@ -33,36 +46,9 @@ class ShareViewController: SLComposeServiceViewController {
     }
 
     override func configurationItems() -> [Any]! {
-        // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-        return [ ]
+        [ selectDocumentItem ]
     }
     
-    private func handleSharedFile() {
-        let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
-        let contentType = kUTTypeData as String
-        for provider in attachments {
-            // Check if the content type is the same as we expected
-            if provider.hasItemConformingToTypeIdentifier(contentType) {
-                provider.loadItem(forTypeIdentifier: contentType,
-                                  options: nil) { [unowned self] (url, error) in
-                    guard error == nil else { return }
-                    
-                    if let url = url as? URL, url.absoluteString.hasSuffix(".zip") {
-                        moveZip(from: url)
-                    } else {
-                        // Handle this situation as you prefer
-                        fatalError("Impossible to save image")
-                    }
-                }}
-        }
-    }
-    
-    private func moveZip(from url: URL){
-        let fileManager = FileManager.default
-        let container = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.rithmmm")!.appendingPathComponent("Inbound").appendingPathComponent(url.lastPathComponent)
-        try! fileManager.moveItem(at: url, to: container)
-        
-        self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
-    }
+   
 
 }

@@ -57,7 +57,7 @@ struct rithnnnDocument: FileDocument, Codable {
     
     var unprocessedZips = [URL]()
     
-    private var containerURL: URL { FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.rithmmm")! }
+    private var containerURL: URL { FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.rithnnn")! }
     private var inbox: URL {containerURL.appendingPathComponent("Inbound").appendingPathComponent(uuid.uuidString)}
     private var rifffsContainer: URL { containerURL.appendingPathComponent(uuid.uuidString).appendingPathComponent("Rifffs")}
     
@@ -73,7 +73,6 @@ struct rithnnnDocument: FileDocument, Codable {
     init(){ // first creation
         let fileManager = FileManager.default
         try? fileManager.createDirectory(at: inbox, withIntermediateDirectories: true, attributes: nil)
-        
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
@@ -85,8 +84,10 @@ struct rithnnnDocument: FileDocument, Codable {
         let fileManager = FileManager.default
         try? fileManager.createDirectory(at: inbox, withIntermediateDirectories: true, attributes: nil)
         
+        print("looking in container", inbox)
+        
         let files = try! fileManager.contentsOfDirectory(at: inbox, includingPropertiesForKeys: nil, options: []).filter{ $0.lastPathComponent.hasSuffix(".zip")}
-        print(files)
+        print("Found", files.count, "zip files")
         for url in files{
             if let _ = rifffs.firstIndex(where: {$0.zipURL == url}){
             }else{

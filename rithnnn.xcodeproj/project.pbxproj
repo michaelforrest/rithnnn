@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		AC46939A26ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip in Resources */ = {isa = PBXBuildFile; fileRef = AC46939926ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip */; };
+		AC6DB8CE26EDDCF80058139D /* ShareHomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8CD26EDDCF80058139D /* ShareHomeTableViewController.swift */; };
+		AC6DB8D626EDDDCC0058139D /* RootNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8D526EDDDCC0058139D /* RootNavViewController.swift */; };
+		AC6DB8E426EDE42E0058139D /* DocumentListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8E326EDE42E0058139D /* DocumentListTableViewController.swift */; };
+		AC6DB8EC26EDE8E20058139D /* RithnnnAppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8EB26EDE8E20058139D /* RithnnnAppGroup.swift */; };
+		AC6DB8F326EDE8FD0058139D /* RithnnnAppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8EB26EDE8E20058139D /* RithnnnAppGroup.swift */; };
+		AC6DB8FA26EDE9020058139D /* RithnnnAppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8EB26EDE8E20058139D /* RithnnnAppGroup.swift */; };
 		ACE2AE1726EC961700775DB1 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AE1626EC961700775DB1 /* Tests_iOS.swift */; };
 		ACE2AE2226EC961700775DB1 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AE2126EC961700775DB1 /* Tests_macOS.swift */; };
 		ACE2AE2426EC961700775DB1 /* rithnnnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */; };
@@ -72,6 +78,10 @@
 
 /* Begin PBXFileReference section */
 		AC46939926ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip"; sourceTree = "<group>"; };
+		AC6DB8CD26EDDCF80058139D /* ShareHomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareHomeTableViewController.swift; sourceTree = "<group>"; };
+		AC6DB8D526EDDDCC0058139D /* RootNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavViewController.swift; sourceTree = "<group>"; };
+		AC6DB8E326EDE42E0058139D /* DocumentListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListTableViewController.swift; sourceTree = "<group>"; };
+		AC6DB8EB26EDE8E20058139D /* RithnnnAppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RithnnnAppGroup.swift; sourceTree = "<group>"; };
 		ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rithnnnApp.swift; sourceTree = "<group>"; };
 		ACE2ADFB26EC961600775DB1 /* rithnnnDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rithnnnDocument.swift; sourceTree = "<group>"; };
 		ACE2ADFC26EC961600775DB1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -256,6 +266,9 @@
 				ACE2AE7E26ECA09C00775DB1 /* ShareViewController.swift */,
 				ACE2AE8026ECA09C00775DB1 /* MainInterface.storyboard */,
 				ACE2AE8326ECA09C00775DB1 /* Info.plist */,
+				AC6DB8D526EDDDCC0058139D /* RootNavViewController.swift */,
+				AC6DB8CD26EDDCF80058139D /* ShareHomeTableViewController.swift */,
+				AC6DB8E326EDE42E0058139D /* DocumentListTableViewController.swift */,
 			);
 			path = ShareExtension;
 			sourceTree = "<group>";
@@ -290,6 +303,7 @@
 				ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */,
 				ACE2AF2C26ECBA9000775DB1 /* AppDelegate.swift */,
 				ACE2ADFD26EC961700775DB1 /* Assets.xcassets */,
+				AC6DB8EB26EDE8E20058139D /* RithnnnAppGroup.swift */,
 			);
 			name = App;
 			sourceTree = "<group>";
@@ -522,6 +536,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACE2AF3426ECBAAC00775DB1 /* AppDelegate.swift in Sources */,
+				AC6DB8F326EDE8FD0058139D /* RithnnnAppGroup.swift in Sources */,
 				ACE2AE2626EC961700775DB1 /* rithnnnDocument.swift in Sources */,
 				ACE2AE2426EC961700775DB1 /* rithnnnApp.swift in Sources */,
 				ACE2AF5426ECBB7B00775DB1 /* Player.swift in Sources */,
@@ -536,6 +551,7 @@
 				ACE2AE2726EC961700775DB1 /* rithnnnDocument.swift in Sources */,
 				ACE2AE2526EC961700775DB1 /* rithnnnApp.swift in Sources */,
 				ACE2AE2926EC961700775DB1 /* ContentView.swift in Sources */,
+				AC6DB8FA26EDE9020058139D /* RithnnnAppGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,7 +584,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC6DB8CE26EDDCF80058139D /* ShareHomeTableViewController.swift in Sources */,
 				ACE2AE7F26ECA09C00775DB1 /* ShareViewController.swift in Sources */,
+				AC6DB8E426EDE42E0058139D /* DocumentListTableViewController.swift in Sources */,
+				AC6DB8EC26EDE8E20058139D /* RithnnnAppGroup.swift in Sources */,
+				AC6DB8D626EDDDCC0058139D /* RootNavViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
