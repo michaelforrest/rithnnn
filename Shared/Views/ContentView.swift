@@ -37,6 +37,9 @@ struct ContentView: View {
         GridItem(.flexible()),
     ]
     
+    let timer = Timer.publish(every: 0.01666, on: .main, in: .common).autoconnect()
+    @State var playerDebugging = ""
+    
     var body: some View {
         VStack {
             LazyVGrid(columns: columns, spacing: 20){
@@ -44,39 +47,70 @@ struct ContentView: View {
                     SlotView(slot: slot)
                 }
             }.frame(maxWidth: .infinity).padding()
+            HStack {
+                Text(playerDebugging)
+                Spacer()
+            }.padding()
             List {
                 if player.error != nil {
                     Text(player.error ?? "").foregroundColor(.red)
                 }
-                
                 ForEach(document.unprocessedZips, id: \.self){ url in
                     HStack{
                         Image(systemName: "doc.zipper")
                         Text(url.lastPathComponent)
                         Spacer()
+                        ProgressView()
+                    }
+                }
+                ForEach(document.rifffs){ rifff in
+                    HStack{
+                        Image(systemName: "doc.zipper")
+                        Text(rifff.zipURL.lastPathComponent)
+                        Spacer()
                         Image(systemName: "checkmark")
                     }
-                }
-                ForEach(document.set.audioFileURLs!, id: \.self){ url in
-                    HStack {
-                        Image(systemName: "waveform.circle")
-                        Text(url.lastPathComponent)
-                        Spacer()
-                        if player.isPlaying(url: url){
-                            Image(systemName: "speaker.wave.2.circle")
+                    .foregroundColor(.white)
+                    .background(Color.gray)
+                    ForEach(rifff.loops) { loop in
+                        HStack {
+                            Image(systemName: "waveform.circle")
+                            Text(loop.url.lastPathComponent)
+                            Spacer()
+                            if player.isPlaying(url: loop.url){
+                                Image(systemName: "speaker.wave.2.circle")
+                            }
+                        }.onTapGesture {
+                            if player.isPlaying(url: loop.url){
+                                player.stop(url: loop.url)
+                            }else{
+                                try? player.replaceRandom(with: loop.url)
+                            }
                         }
-                    }.onTapGesture {
-                        if player.isPlaying(url: url){
-                            player.stop(url: url)
-                        }else{
-                            try? player.replaceRandom(with: url)
+                    }
+                    
+                }
+                TextField("UUID", text: Binding.constant(document.uuid.uuidString))
+            }
+            .onReceive(timer, perform: { _ in
+                playerDebugging = player.debugString
+            })
+            .onAppear{
+                document.processInboundFiles(onStartProcessing: {url in
+                    document.unprocessedZips.append(url)
+                }){ rifff in
+                    withAnimation {
+                        document.rifffs.append(rifff)
+                        if let index =  document.unprocessedZips.firstIndex(of: rifff.zipURL){
+                            document.unprocessedZips.remove(at:index)
                         }
                     }
                 }
+                try? self.player.play(set: document)
             }
-            .onAppear{
-                try? self.player.play(set: document.set)
-        }
+            .onDisappear{
+                self.player.stopAndClear()
+            }
         }
         
     }

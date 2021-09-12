@@ -11,6 +11,7 @@ struct ContentView: View {
     let files = [
         "Quantize-Free Zone - michaelforrest - 140BPM - 2021-09-10-20-17",
         "Quantize-Free Zone - fancyspectacles - 140BPM - 2021-09-10-19-37",
+        "Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46",
     ]
 
     var body: some View {

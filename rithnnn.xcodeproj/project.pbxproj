@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC46939A26ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip in Resources */ = {isa = PBXBuildFile; fileRef = AC46939926ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip */; };
 		ACE2AE1726EC961700775DB1 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AE1626EC961700775DB1 /* Tests_iOS.swift */; };
 		ACE2AE2226EC961700775DB1 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AE2126EC961700775DB1 /* Tests_macOS.swift */; };
 		ACE2AE2426EC961700775DB1 /* rithnnnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */; };
@@ -70,6 +71,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AC46939926ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip"; sourceTree = "<group>"; };
 		ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rithnnnApp.swift; sourceTree = "<group>"; };
 		ACE2ADFB26EC961600775DB1 /* rithnnnDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rithnnnDocument.swift; sourceTree = "<group>"; };
 		ACE2ADFC26EC961600775DB1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				ACE2AE4C26EC9E0800775DB1 /* FakeEndlesssApp.swift */,
 				ACE2AE6A26EC9EBE00775DB1 /* Quantize-Free Zone - michaelforrest - 140BPM - 2021-09-10-20-17.zip */,
 				ACE2AE7126EC9EE800775DB1 /* Quantize-Free Zone - fancyspectacles - 140BPM - 2021-09-10-19-37.zip */,
+				AC46939926ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip */,
 				ACE2AE4E26EC9E0800775DB1 /* ContentView.swift */,
 				ACE2AE5026EC9E0A00775DB1 /* Assets.xcassets */,
 				ACE2AE5526EC9E0A00775DB1 /* Info.plist */,
@@ -284,8 +287,8 @@
 		ACE2AF4526ECBB5E00775DB1 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				ACE2AF2C26ECBA9000775DB1 /* AppDelegate.swift */,
 				ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */,
+				ACE2AF2C26ECBA9000775DB1 /* AppDelegate.swift */,
 				ACE2ADFD26EC961700775DB1 /* Assets.xcassets */,
 			);
 			name = App;
@@ -495,6 +498,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC46939A26ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip in Resources */,
 				ACE2AE5426EC9E0A00775DB1 /* Preview Assets.xcassets in Resources */,
 				ACE2AE6B26EC9EBE00775DB1 /* Quantize-Free Zone - michaelforrest - 140BPM - 2021-09-10-20-17.zip in Resources */,
 				ACE2AE5126EC9E0A00775DB1 /* Assets.xcassets in Resources */,
