@@ -76,7 +76,7 @@ extension UIViewController{
         if !fileManager.fileExists(atPath: container.path){
             try! fileManager.createDirectory(at: container, withIntermediateDirectories: true, attributes: nil)
         }
-        try? fileManager.moveItem(at: url, to: container.appendingPathComponent(url.lastPathComponent))
+        try! fileManager.copyItem(at: url, to: container.appendingPathComponent(url.lastPathComponent))
         print("writing to", container)
         
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)

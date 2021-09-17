@@ -14,6 +14,7 @@
 		AC6DB8EC26EDE8E20058139D /* RithnnnAppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8EB26EDE8E20058139D /* RithnnnAppGroup.swift */; };
 		AC6DB8F326EDE8FD0058139D /* RithnnnAppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8EB26EDE8E20058139D /* RithnnnAppGroup.swift */; };
 		AC6DB8FA26EDE9020058139D /* RithnnnAppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8EB26EDE8E20058139D /* RithnnnAppGroup.swift */; };
+		ACDC6D9426EE0AE600FEC5D2 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC6D9326EE0AE600FEC5D2 /* Algorithm.swift */; };
 		ACE2AE1726EC961700775DB1 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AE1626EC961700775DB1 /* Tests_iOS.swift */; };
 		ACE2AE2226EC961700775DB1 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AE2126EC961700775DB1 /* Tests_macOS.swift */; };
 		ACE2AE2426EC961700775DB1 /* rithnnnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */; };
@@ -82,6 +83,7 @@
 		AC6DB8D526EDDDCC0058139D /* RootNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavViewController.swift; sourceTree = "<group>"; };
 		AC6DB8E326EDE42E0058139D /* DocumentListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListTableViewController.swift; sourceTree = "<group>"; };
 		AC6DB8EB26EDE8E20058139D /* RithnnnAppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RithnnnAppGroup.swift; sourceTree = "<group>"; };
+		ACDC6D9326EE0AE600FEC5D2 /* Algorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
 		ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rithnnnApp.swift; sourceTree = "<group>"; };
 		ACE2ADFB26EC961600775DB1 /* rithnnnDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rithnnnDocument.swift; sourceTree = "<group>"; };
 		ACE2ADFC26EC961600775DB1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -162,6 +164,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ACDC6D9226EE0AC800FEC5D2 /* Algorithms */ = {
+			isa = PBXGroup;
+			children = (
+				ACDC6D9326EE0AE600FEC5D2 /* Algorithm.swift */,
+			);
+			path = Algorithms;
+			sourceTree = "<group>";
+		};
 		ACE2ADF426EC961600775DB1 = {
 			isa = PBXGroup;
 			children = (
@@ -292,6 +302,7 @@
 		ACE2AF4326ECBB4000775DB1 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				ACDC6D9226EE0AC800FEC5D2 /* Algorithms */,
 				ACE2AF4C26ECBB6E00775DB1 /* Player.swift */,
 			);
 			path = Audio;
@@ -535,6 +546,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACDC6D9426EE0AE600FEC5D2 /* Algorithm.swift in Sources */,
 				ACE2AF3426ECBAAC00775DB1 /* AppDelegate.swift in Sources */,
 				AC6DB8F326EDE8FD0058139D /* RithnnnAppGroup.swift in Sources */,
 				ACE2AE2626EC961700775DB1 /* rithnnnDocument.swift in Sources */,

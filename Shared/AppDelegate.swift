@@ -8,6 +8,8 @@
 import UIKit
 import AVKit
 
+var userLocalDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         try? AVAudioSession.sharedInstance().setCategory(.playback)
@@ -21,9 +23,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 extension RithnnnAppGroup{
     
     static func syncDocumentInfo(){
-        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let dir = userLocalDir
         print("Local docs", dir)
         guard let files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: []) else { return }
+        print("local files", files.count, files)
         
         let documents = files.filter{$0.pathExtension == "rithnnn"}.map{
             RithnnnDocumentInfo(url: $0)

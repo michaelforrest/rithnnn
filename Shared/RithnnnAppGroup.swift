@@ -7,7 +7,8 @@
 
 import UIKit
 
-struct RithnnnDocumentInfo:Codable{
+struct RithnnnDocumentInfo:Codable, Identifiable{
+    var id: String { uuid }
     let uuid: String
     let title: String
 }

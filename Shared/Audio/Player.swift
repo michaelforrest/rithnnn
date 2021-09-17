@@ -44,29 +44,45 @@ class Player: ObservableObject{
     @Published var error: String?
 
     var startTime: AVAudioTime?
+    let TapBufferFrames:AVAudioFrameCount = 512
     
     let engine = AVAudioEngine()
     @Published var slots = (0..<9).map{ _ in Slot() }
+    var outputMeterLevel: Float = 0
+    
     var document: rithnnnDocument?
     
     var debugString: String {
         engine.isRunning ?
-            "\(AVAudioTime.seconds(forHostTime: slots.first?.node.lastRenderTime?.hostTime ?? 0))\n\(AVAudioTime.seconds(forHostTime: nextBarStartTime()?.hostTime ?? 0)) " : "Not Running"
+            "\(AVAudioTime.seconds(forHostTime: slots.first?.node.lastRenderTime?.hostTime ?? 0))\n\(AVAudioTime.seconds(forHostTime: nextBarStartTime()?.hostTime ?? 0))" : "Not Running"
     }
+    
     
     // https://stackoverflow.com/a/52960011/191991
     func play(set: rithnnnDocument) throws {
         guard let exampleFile = set.rifffs.first?.loops.first?.url else { return }
+        engine.stop()
         let exampleLoop = try Loop(url: exampleFile)
         self.document = set
         slots.forEach { slot in
             engine.attach(slot.node)
             engine.connect(slot.node, to: engine.mainMixerNode, format: exampleLoop.file.processingFormat)
         }
+        
+        engine.outputNode.removeTap(onBus: 0)
+        let format = engine.mainMixerNode.outputFormat(forBus: 0)
+        engine.mainMixerNode.installTap(onBus: 0, bufferSize: TapBufferFrames, format: format) { buffer, time in
+            let arraySize = Int(buffer.frameLength)
+            let samples = Array(UnsafeBufferPointer(start: buffer.floatChannelData![0], count:arraySize))
+            let total = samples.reduce(0, +)
+            DispatchQueue.main.async{
+                self.outputMeterLevel = total / Float(buffer.frameLength)
+            }
+        }
         engine.prepare()
         try engine.start()
         
-        let startTime = AVAudioTime(hostTime: mach_absolute_time())
+        let startTime = nextBarStartTime() ?? AVAudioTime(hostTime: mach_absolute_time())
         slots.forEach { slot in
             slot.node.play(at: startTime)
         }
