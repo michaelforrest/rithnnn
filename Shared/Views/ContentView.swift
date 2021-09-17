@@ -28,6 +28,7 @@ struct SlotView:View{
 }
 
 struct ContentView: View {
+    @Binding var document: rithnnnDocument
     @ObservedObject var player: Player
     
     let columns = [

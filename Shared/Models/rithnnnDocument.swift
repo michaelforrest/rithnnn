@@ -79,7 +79,6 @@ struct rithnnnDocument: FileDocument, Codable {
         let fileManager = FileManager.default
         try? fileManager.createDirectory(at: inbox, withIntermediateDirectories: true, attributes: nil)
         
-        try! fileWrapper().write(to: rithnnnDocument.localURL(uuid: uuid.uuidString), options: .atomic, originalContentsURL: nil)
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {

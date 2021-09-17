@@ -69,8 +69,8 @@ class Player: ObservableObject{
             engine.connect(slot.node, to: engine.mainMixerNode, format: exampleLoop.file.processingFormat)
         }
         
-        engine.outputNode.removeTap(onBus: 0)
         let format = engine.mainMixerNode.outputFormat(forBus: 0)
+        engine.outputNode.removeTap(onBus: 0)
         engine.mainMixerNode.installTap(onBus: 0, bufferSize: TapBufferFrames, format: format) { buffer, time in
             let arraySize = Int(buffer.frameLength)
             let samples = Array(UnsafeBufferPointer(start: buffer.floatChannelData![0], count:arraySize))
