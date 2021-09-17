@@ -42,7 +42,8 @@ struct ContentView: View {
     @State var meterLevel: CGFloat = 0
     
     var body: some View {
-        VStack {
+        let rifffs = document.manifest.rifffs
+        return VStack {
             LazyVGrid(columns: columns, spacing: 20){
                 ForEach(player.slots){ slot in
                     SlotView(slot: slot)
@@ -67,7 +68,7 @@ struct ContentView: View {
                         ProgressView()
                     }
                 }
-                ForEach(document.rifffs){ rifff in
+                ForEach(rifffs){ rifff in
                     HStack{
                         Image(systemName: "doc.zipper")
                         Text(rifff.zipURL.lastPathComponent)
@@ -94,7 +95,7 @@ struct ContentView: View {
                     }
                     
                 }
-                TextField("UUID", text: Binding.constant(document.uuid.uuidString))
+                TextField("UUID", text: Binding.constant(document.manifest.uuid.uuidString))
             }
             .onReceive(timer, perform: { _ in
                 playerDebugging = player.debugString
@@ -103,15 +104,15 @@ struct ContentView: View {
             .onAppear{
                 RithnnnAppGroup.setLatest(
                     document: RithnnnDocumentInfo(
-                        uuid: document.uuid.uuidString,
-                        title: document.uuid.uuidString
+                        uuid: document.manifest.uuid.uuidString,
+                        title: "Something"
                     )
                 )
                 document.processInboundFiles(onStartProcessing: {url in
                     document.unprocessedZips.append(url)
                 }){ rifff in
                     withAnimation {
-                        document.rifffs.append(rifff)
+                        document.manifest.rifffs.append(rifff)
                         if let index =  document.unprocessedZips.firstIndex(of: rifff.zipURL){
                             document.unprocessedZips.remove(at:index)
                         }

@@ -18,6 +18,22 @@ struct RithnnnAppGroup{
     static var DocListKey = "DocumentsList"
     
     static let defaults = UserDefaults(suiteName: "group.rithnnn")!
+    
+    static var containerURL: URL{
+        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.rithnnn")!
+    }
+    
+    static func inbox(uuid: UUID)->URL{
+        containerURL.appendingPathComponent("Inbound").appendingPathComponent(uuid.uuidString)
+    }
+    
+    static func createInbox(uuid: UUID){
+        let fileManager = FileManager.default
+        let inbox = self.inbox(uuid: uuid)
+        try? fileManager.createDirectory(at: inbox, withIntermediateDirectories: true, attributes: nil)
+        
+    }
+    
     static func setLatest(document: RithnnnDocumentInfo){
         let data = try! JSONEncoder().encode(document)
         defaults.setValue(data, forKey: LatestDocKey)

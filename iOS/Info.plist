@@ -8,15 +8,15 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeName</key>
-			<string>Set</string>
+			<string>Package</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>goodtohear.rithnnn.set</string>
+				<string>goodtohear.rithnnn.package</string>
 			</array>
 			<key>NSUbiquitousDocumentUserActivityType</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).set</string>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).package</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -76,22 +76,21 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.data</string>
-				<string>public.content</string>
+				<string>com.apple.package</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Rithnnn Set</string>
+			<string>Rithnnn Package</string>
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>goodtohear.rithnnn.set</string>
+			<string>goodtohear.rithnnn.package</string>
 			<key>UTTypeReferenceURL</key>
 			<string>http://rithnnn.app</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>rithnnn</string>
+					<string>nnn</string>
 				</array>
 			</dict>
 		</dict>
@@ -101,19 +100,19 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.json</string>
+				<string>com.apple.package</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Rithnnn Set</string>
+			<string>Rithnnn Package</string>
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>goodtohear.rithnnn.set</string>
+			<string>goodtohear.rithnnn.package</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>rithnnn</string>
+					<string>nnn</string>
 				</array>
 			</dict>
 		</dict>

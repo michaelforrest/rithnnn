@@ -28,20 +28,20 @@ extension RithnnnAppGroup{
         guard let files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: []) else { return }
         print("local files", files.count, files)
         
-        let documents = files.filter{$0.pathExtension == "rithnnn"}.map{
-            RithnnnDocumentInfo(url: $0)
-        }
-        let data = try! JSONEncoder().encode(documents)
-        defaults.setValue(data, forKey: DocListKey)
-        defaults.synchronize()
-        
-        print("test result", listDocuments())
+//        let documents = files.filter{$0.pathExtension == "rithnnn"}.map{
+//            RithnnnDocumentInfo(url: $0)
+//        }
+//        let data = try! JSONEncoder().encode(documents)
+//        defaults.setValue(data, forKey: DocListKey)
+//        defaults.synchronize()
+//        
+//        print("test result", listDocuments())
     }
 }
 
-extension RithnnnDocumentInfo{
-    init(url: URL){
-        self.title = url.deletingPathExtension().lastPathComponent
-        self.uuid = try! JSONDecoder().decode(rithnnnDocument.self, from: Data(contentsOf: url)).uuid.uuidString
-    }
-}
+//extension RithnnnDocumentInfo{
+//    init(url: URL){
+//        self.title = url.deletingPathExtension().lastPathComponent
+//        self.uuid = try! JSONDecoder().decode(rithnnnDocument.self, from: Data(contentsOf: url)).manifest.uuid.uuidString
+//    }
+//}

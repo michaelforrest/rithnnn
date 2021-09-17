@@ -60,7 +60,7 @@ class Player: ObservableObject{
     
     // https://stackoverflow.com/a/52960011/191991
     func play(set: rithnnnDocument) throws {
-        guard let exampleFile = set.rifffs.first?.loops.first?.url else { return }
+        guard let exampleFile = set.manifest.rifffs.first?.loops.first?.url else { return }
         engine.stop()
         let exampleLoop = try Loop(url: exampleFile)
         self.document = set
@@ -88,7 +88,7 @@ class Player: ObservableObject{
         }
         self.startTime = startTime
         for (index, slot) in slots.enumerated(){
-            let urls = set.rifffs.flatMap{ $0.loops.map{ $0.url } }
+            let urls = set.manifest.rifffs.flatMap{ $0.loops.map{ $0.url } }
             if index < urls.count{
                 let url:URL? = urls[index]
                 if let url = url{
@@ -148,6 +148,6 @@ class Player: ObservableObject{
 
 extension rithnnnDocument{
     var barLength: TimeInterval{
-        (60 / tempo) * 4
+        (60 / manifest.tempo) * 4
     }
 }
