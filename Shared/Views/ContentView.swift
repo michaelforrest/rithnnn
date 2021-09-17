@@ -28,7 +28,6 @@ struct SlotView:View{
 }
 
 struct ContentView: View {
-    @Binding var document: rithnnnDocument
     @ObservedObject var player: Player
     
     let columns = [
@@ -39,6 +38,7 @@ struct ContentView: View {
     
     let timer = Timer.publish(every: 0.01666, on: .main, in: .common).autoconnect()
     @State var playerDebugging = ""
+    @State var meterLevel: CGFloat = 0
     
     var body: some View {
         VStack {
@@ -47,6 +47,9 @@ struct ContentView: View {
                     SlotView(slot: slot)
                 }
             }.frame(maxWidth: .infinity).padding()
+            Rectangle()
+                .fill(.green)
+                .frame(width: 150 * (meterLevel + 1), height: 2)
             HStack {
                 Text(playerDebugging)
                 Spacer()
@@ -94,8 +97,15 @@ struct ContentView: View {
             }
             .onReceive(timer, perform: { _ in
                 playerDebugging = player.debugString
+                meterLevel = CGFloat(player.outputMeterLevel)
             })
             .onAppear{
+                RithnnnAppGroup.setLatest(
+                    document: RithnnnDocumentInfo(
+                        uuid: document.uuid.uuidString,
+                        title: document.uuid.uuidString
+                    )
+                )
                 document.processInboundFiles(onStartProcessing: {url in
                     document.unprocessedZips.append(url)
                 }){ rifff in
