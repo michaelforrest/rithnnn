@@ -51,6 +51,11 @@ struct rithnnnDocument: FileDocument, Codable {
     var date = Date()
     var rifffs = [Rifff]()
     
+    
+    public static func localURL(uuid: String)-> URL{
+        userLocalDir.appendingPathComponent(uuid).appendingPathExtension("rithnnn")
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case uuid, tempo, date, rifffs
     }
@@ -73,6 +78,8 @@ struct rithnnnDocument: FileDocument, Codable {
     init(){ // first creation
         let fileManager = FileManager.default
         try? fileManager.createDirectory(at: inbox, withIntermediateDirectories: true, attributes: nil)
+        
+        try! fileWrapper().write(to: rithnnnDocument.localURL(uuid: uuid.uuidString), options: .atomic, originalContentsURL: nil)
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
