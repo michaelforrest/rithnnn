@@ -74,6 +74,7 @@ struct Manifest: Codable{
 }
  
 struct rithnnnDocument: FileDocument{
+    var filename = ""
     var manifest = Manifest()
     var container = FileWrapper(directoryWithFileWrappers: [:])
     
@@ -91,14 +92,17 @@ struct rithnnnDocument: FileDocument{
     
     private var queue = DispatchQueue(label: "unzipping")
 
+    // LOAD FILE
     init(configuration: ReadConfiguration) throws {
         let data = configuration.file.fileWrappers![.manifestKey]!.regularFileContents!
+        self.filename = configuration.file.filename!
         self.manifest = try JSONDecoder().decode(Manifest.self, from: data)
         self.container = configuration.file.fileWrappers![.audioKey]!
     }
 
     init(){}
     
+    // SAVE FILE
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
         let data = try JSONEncoder().encode(self.manifest)
         let manifestFileWrapper = FileWrapper(regularFileWithContents: data)

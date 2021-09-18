@@ -113,7 +113,7 @@ struct ContentView: View {
                 RithnnnAppGroup.setLatest(
                     document: RithnnnDocumentInfo(
                         uuid: document.manifest.uuid.uuidString,
-                        title: "Something"
+                        title: document.filename
                     )
                 )
                 document.processInboundFiles(onStartProcessing: {url in
