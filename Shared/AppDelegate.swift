@@ -25,10 +25,10 @@ extension RithnnnAppGroup{
     static func syncDocumentInfo(){
         let dir = userLocalDir
         print("Local docs", dir)
-        guard let files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: []) else { return }
+        guard let files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: []).filter({$0.pathExtension == "nnn"})  else { return }
         print("local files", files.count, files)
         
-        let documents = files.filter{$0.pathExtension == "nnn"}.map{
+        let documents = files.map{
             RithnnnDocumentInfo(url: $0)
         }
         let data = try! JSONEncoder().encode(documents)
