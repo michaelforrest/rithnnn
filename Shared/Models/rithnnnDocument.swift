@@ -35,9 +35,9 @@ public struct Rifff:Codable,Identifiable{
         public var instrument: String
         public var tempo: Float
         public var dateTime: Date
-        public init(filename: String){
+        public init(filename: String, meta: String){
             self.filename = filename
-            let components = filename.components(separatedBy: " - ")
+            let components = meta.components(separatedBy: " - ")
             self.user = components[1]
             self.instrument = components[2]
             self.tempo = Float(components[3].replacingOccurrences(of: "BPM", with: "")) ?? 120
@@ -136,7 +136,7 @@ struct rithnnnDocument: FileDocument{
                         }))
                         fileWrapper.preferredFilename = tempDir.lastPathComponent
                         let rifff = Rifff(zipURL: url, tempDir: tempDir, dirName: dirName, loops: audioFiles.map{ audioFileURL -> Rifff.Loop in
-                            Rifff.Loop(filename: audioFileURL.deletingPathExtension().lastPathComponent)
+                            Rifff.Loop(filename: audioFileURL.lastPathComponent, meta: audioFileURL.deletingPathExtension().lastPathComponent)
                         })
                         DispatchQueue.main.async {
                             self.container.addFileWrapper(fileWrapper)

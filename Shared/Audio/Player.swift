@@ -57,15 +57,21 @@ class Player: ObservableObject{
             "\(AVAudioTime.seconds(forHostTime: slots.first?.node.lastRenderTime?.hostTime ?? 0))\n\(AVAudioTime.seconds(forHostTime: nextBarStartTime()?.hostTime ?? 0))" : "Not Running"
     }
     
+    func url(_ baseURL:URL, rifff: Rifff, loop: Rifff.Loop)->URL{
+        baseURL
+            .appendingPathComponent("Audio")
+            .appendingPathComponent(rifff.dirName)
+            .appendingPathComponent(loop.filename)
+    }
     
     // https://stackoverflow.com/a/52960011/191991
-    func play(set: rithnnnDocument) throws {
+    func play(set: rithnnnDocument, baseURL: URL) throws {
         guard let firstRifff = set.manifest.rifffs.first,
               let firstLoop = firstRifff.loops.first,
-              let fileWrapper = set.container.fileWrappers![firstLoop.filename]
+              let fileWrapper = set.container.fileWrappers?[firstRifff.dirName]?.fileWrappers?[firstLoop.filename]
               else { return }
         engine.stop()
-        let exampleLoop = try Loop(url: fileWrapper.symbolicLinkDestinationURL!)
+        let exampleLoop = try Loop(url: self.url(baseURL, rifff: firstRifff, loop: firstLoop))
         self.document = set
         slots.forEach { slot in
             engine.attach(slot.node)
@@ -90,17 +96,17 @@ class Player: ObservableObject{
             slot.node.play(at: startTime)
         }
         self.startTime = startTime
-//        for (index, slot) in slots.enumerated(){
-//            let urls = set.manifest.rifffs.flatMap{ $0.loops.map{ $0.url } }
-//            if index < urls.count{
-//                let url:URL? = urls[index]
-//                if let url = url{
-//                    try slot.replace(
-//                        with: Loop(url: url) // WARNING: memory/time-intensive
-//                    )
-//                }
-//            }
-//        }
+        for (index, slot) in slots.enumerated(){
+            let urls = set.manifest.rifffs.flatMap{ rifff in rifff.loops.map{ self.url(baseURL, rifff: rifff, loop: $0) } }
+            if index < urls.count{
+                let url:URL? = urls[index]
+                if let url = url{
+                    try slot.replace(
+                        with: Loop(url: url) // WARNING: memory/time-intensive
+                    )
+                }
+            }
+        }
         objectWillChange.send()
     }
     
@@ -117,10 +123,10 @@ class Player: ObservableObject{
         slots.compactMap{$0.playing?.url}.contains(url)
     }
     
-    func replaceRandom(with url: URL) throws{
+    func replaceRandom(with loop: Rifff.Loop, rifff: Rifff, baseURL: URL) throws{
         if let slot = slots.first(where: { $0.playing == nil }) ?? slots.randomElement(){
             let nextStartTime = nextBarStartTime()
-            slot.replace(with: try Loop(url: url), at: nextStartTime) // will be nil if nothing playing though
+            slot.replace(with: try Loop(url: url(baseURL, rifff: rifff, loop: loop)), at: nextStartTime) // will be nil if nothing playing though
         }
         objectWillChange.send()
     }

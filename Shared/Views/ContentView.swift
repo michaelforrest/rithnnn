@@ -30,6 +30,7 @@ struct SlotView:View{
 struct RifffListing: View{
     var rifff: Rifff
     var player: Player
+    var baseURL: URL
     var body: some View{
         HStack{
             Image(systemName: "doc.zipper")
@@ -51,7 +52,7 @@ struct RifffListing: View{
                 if player.isPlaying(loop: loop){
                     player.stop(loop: loop)
                 }else{
-//                    try? player.replaceRandom(with: loop.url)
+                    try? player.replaceRandom(with: loop,rifff: rifff, baseURL: baseURL)
                 }
             }
         }
@@ -62,6 +63,7 @@ struct RifffListing: View{
 struct ContentView: View {
     @Binding var document: rithnnnDocument
     @ObservedObject var player: Player
+    var baseURL: URL
     
     let columns = [
         GridItem(.flexible()),
@@ -101,7 +103,7 @@ struct ContentView: View {
                     }
                 }
                 ForEach(rifffs){ rifff in
-                    RifffListing(rifff: rifff, player: player)
+                    RifffListing(rifff: rifff, player: player, baseURL: baseURL)
                 }
                 TextField("UUID", text: Binding.constant(document.manifest.uuid.uuidString))
             }
@@ -124,10 +126,10 @@ struct ContentView: View {
                         if let index =  document.unprocessedZips.firstIndex(of: rifff.zipURL){
                             document.unprocessedZips.remove(at:index)
                         }
-                        try? player.play(set: document)
+                        try? player.play(set: document, baseURL: baseURL)
                     }
                 }
-                try? self.player.play(set: document)
+                try! self.player.play(set: document, baseURL: baseURL)
             }
             .onDisappear{
                 self.player.stopAndClear()
@@ -140,6 +142,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(document: .constant(rithnnnDocument()), player: Player())
+        ContentView(document: .constant(rithnnnDocument()), player: Player(), baseURL: URL(string: "")!)
     }
 }
