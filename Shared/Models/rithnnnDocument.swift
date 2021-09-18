@@ -12,7 +12,7 @@ import ZIPFoundation
 extension String {
   static let appExtension: String = "rithnnn"
   static let versionKey: String = "Version"
-  static let manifestKey: String = "Manifest"
+  static let manifestKey: String = "Manifest.json"
   static let audioKey: String = "Audio"
 }
 
@@ -72,10 +72,10 @@ struct Manifest: Codable{
     }
    
 }
-
+ 
 struct rithnnnDocument: FileDocument{
     var manifest = Manifest()
-    var container: FileWrapper?
+    var container = FileWrapper(directoryWithFileWrappers: [:])
     
     public static func localURL(uuid: String)-> URL{
         userLocalDir.appendingPathComponent(uuid).appendingPathExtension("rithnnn")
@@ -94,7 +94,7 @@ struct rithnnnDocument: FileDocument{
     init(configuration: ReadConfiguration) throws {
         let data = configuration.file.fileWrappers![.manifestKey]!.regularFileContents!
         self.manifest = try JSONDecoder().decode(Manifest.self, from: data)
-        self.container = configuration.file
+        self.container = configuration.file.fileWrappers![.audioKey]!
     }
 
     init(){}
@@ -102,10 +102,9 @@ struct rithnnnDocument: FileDocument{
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
         let data = try JSONEncoder().encode(self.manifest)
         let manifestFileWrapper = FileWrapper(regularFileWithContents: data)
-        
         return FileWrapper(directoryWithFileWrappers: [
             .manifestKey: manifestFileWrapper,
-            .audioKey: manifest.fileWrapper
+            .audioKey: self.container
         ])
     }
     
@@ -123,18 +122,20 @@ struct rithnnnDocument: FileDocument{
             }else{
                 let dirName = url.deletingPathExtension().lastPathComponent
                 let tempDir = fileManager.temporaryDirectory.appendingPathComponent(dirName)
-                let fileWrapper = FileWrapper(directoryWithFileWrappers: [:])
+                
                 onStartProcessing(url)
                 queue.async {
                     try? fileManager.unzipItem(at: url, to: tempDir)
                     if let audioFiles = try? fileManager.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil, options: []){
-                        audioFiles.forEach { url in
-                            fileWrapper.addFileWrapper(try! FileWrapper(url: url, options: []))
-                        }
+                        let fileWrapper = FileWrapper(directoryWithFileWrappers: audioFiles.reduce([String:FileWrapper](), { (result, url) -> [String:FileWrapper] in
+                            result.merging([url.lastPathComponent: try! FileWrapper(url: url, options: .immediate)], uniquingKeysWith: {a,_ in a})
+                        }))
+                        fileWrapper.preferredFilename = tempDir.lastPathComponent
                         let rifff = Rifff(zipURL: url, tempDir: tempDir, dirName: dirName, loops: audioFiles.map{ audioFileURL -> Rifff.Loop in
-                            Rifff.Loop(filename: audioFileURL.lastPathComponent)
+                            Rifff.Loop(filename: audioFileURL.deletingPathExtension().lastPathComponent)
                         })
                         DispatchQueue.main.async {
+                            self.container.addFileWrapper(fileWrapper)
                             emitRifff(rifff)
                         }
                     }

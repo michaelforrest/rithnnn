@@ -9,7 +9,7 @@ import Foundation
 
 struct Algorithm:Codable{
     
-    enum RecalculationFrequency:Codable{
+    enum RecalculationFrequency:String,Codable{
         case bar
     }
     /*

@@ -60,9 +60,12 @@ class Player: ObservableObject{
     
     // https://stackoverflow.com/a/52960011/191991
     func play(set: rithnnnDocument) throws {
-        guard let exampleFile = set.manifest.rifffs.first?.loops.first?.url else { return }
+        guard let firstRifff = set.manifest.rifffs.first,
+              let firstLoop = firstRifff.loops.first,
+              let fileWrapper = set.container.fileWrappers![firstLoop.filename]
+              else { return }
         engine.stop()
-        let exampleLoop = try Loop(url: exampleFile)
+        let exampleLoop = try Loop(url: fileWrapper.symbolicLinkDestinationURL!)
         self.document = set
         slots.forEach { slot in
             engine.attach(slot.node)
@@ -87,17 +90,17 @@ class Player: ObservableObject{
             slot.node.play(at: startTime)
         }
         self.startTime = startTime
-        for (index, slot) in slots.enumerated(){
-            let urls = set.manifest.rifffs.flatMap{ $0.loops.map{ $0.url } }
-            if index < urls.count{
-                let url:URL? = urls[index]
-                if let url = url{
-                    try slot.replace(
-                        with: Loop(url: url) // WARNING: memory/time-intensive
-                    )
-                }
-            }
-        }
+//        for (index, slot) in slots.enumerated(){
+//            let urls = set.manifest.rifffs.flatMap{ $0.loops.map{ $0.url } }
+//            if index < urls.count{
+//                let url:URL? = urls[index]
+//                if let url = url{
+//                    try slot.replace(
+//                        with: Loop(url: url) // WARNING: memory/time-intensive
+//                    )
+//                }
+//            }
+//        }
         objectWillChange.send()
     }
     
@@ -107,7 +110,9 @@ class Player: ObservableObject{
             slot.clear()
         }
     }
-    
+    func isPlaying(loop: Rifff.Loop)->Bool{
+        false
+    }
     func isPlaying(url: URL)->Bool{
         slots.compactMap{$0.playing?.url}.contains(url)
     }
@@ -142,6 +147,9 @@ class Player: ObservableObject{
         guard let slot = slots.first(where: { $0.playing?.url == url}) else { return }
         objectWillChange.send()
         slot.clear()
+        
+    }
+    func stop(loop: Rifff.Loop){
         
     }
 }

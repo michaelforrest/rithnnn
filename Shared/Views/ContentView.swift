@@ -27,6 +27,38 @@ struct SlotView:View{
     }
 }
 
+struct RifffListing: View{
+    var rifff: Rifff
+    var player: Player
+    var body: some View{
+        HStack{
+            Image(systemName: "doc.zipper")
+            Text(rifff.zipURL.lastPathComponent)
+            Spacer()
+            Image(systemName: "checkmark")
+        }
+        .foregroundColor(.white)
+        .background(Color.gray)
+        ForEach(rifff.loops) { loop in
+            HStack {
+                Image(systemName: "waveform.circle")
+                Text(loop.filename)
+                Spacer()
+                if player.isPlaying(loop: loop){
+                    Image(systemName: "speaker.wave.2.circle")
+                }
+            }.onTapGesture {
+                if player.isPlaying(loop: loop){
+                    player.stop(loop: loop)
+                }else{
+//                    try? player.replaceRandom(with: loop.url)
+                }
+            }
+        }
+        
+    }
+}
+
 struct ContentView: View {
     @Binding var document: rithnnnDocument
     @ObservedObject var player: Player
@@ -50,7 +82,7 @@ struct ContentView: View {
                 }
             }.frame(maxWidth: .infinity).padding()
             Rectangle()
-                .fill(.green)
+                .fill(Color.green)
                 .frame(width: 150 * (meterLevel + 1), height: 2)
             HStack {
                 Text(playerDebugging)
@@ -69,31 +101,7 @@ struct ContentView: View {
                     }
                 }
                 ForEach(rifffs){ rifff in
-                    HStack{
-                        Image(systemName: "doc.zipper")
-                        Text(rifff.zipURL.lastPathComponent)
-                        Spacer()
-                        Image(systemName: "checkmark")
-                    }
-                    .foregroundColor(.white)
-                    .background(Color.gray)
-                    ForEach(rifff.loops) { loop in
-                        HStack {
-                            Image(systemName: "waveform.circle")
-                            Text(loop.url.lastPathComponent)
-                            Spacer()
-                            if player.isPlaying(url: loop.url){
-                                Image(systemName: "speaker.wave.2.circle")
-                            }
-                        }.onTapGesture {
-                            if player.isPlaying(url: loop.url){
-                                player.stop(url: loop.url)
-                            }else{
-                                try? player.replaceRandom(with: loop.url)
-                            }
-                        }
-                    }
-                    
+                    RifffListing(rifff: rifff, player: player)
                 }
                 TextField("UUID", text: Binding.constant(document.manifest.uuid.uuidString))
             }
