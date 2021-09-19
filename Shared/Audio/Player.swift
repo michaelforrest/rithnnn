@@ -8,6 +8,13 @@
 import Foundation
 import AVKit
 
+extension AVAudioPCMBuffer{
+    var lengthInSeconds:TimeInterval{
+        let frameCount = Double(frameLength)
+        let sampleRate = format.sampleRate
+        return TimeInterval(frameCount / sampleRate)
+    }
+}
 
 class Player: ObservableObject{
     struct Loop{
@@ -15,6 +22,7 @@ class Player: ObservableObject{
         let buffer: AVAudioPCMBuffer
         let file: AVAudioFile
         let loop: Rifff.Loop
+        let lengthInSeconds: TimeInterval
         init(url: URL, loop: Rifff.Loop) throws{
             self.url = url
             self.loop = loop
@@ -23,15 +31,19 @@ class Player: ObservableObject{
             let frameCount = AVAudioFrameCount(file.length) // from AVAudioFramePosition
             self.buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: frameCount)!
             try file.read(into: buffer)
+            self.lengthInSeconds = buffer.lengthInSeconds
         }
     }
     class Slot: ObservableObject, Identifiable{
         let node = AVAudioPlayerNode()
         @Published var playing: Loop?
+        @Published var loopPosition: TimeInterval = 0
         var id = UUID()
+        var startTime: AVAudioTime?
         
-        func replace(with loop: Loop, at time: AVAudioTime?=nil){
+        func replace(with loop: Loop, at time: AVAudioTime){
             self.playing = loop
+            self.startTime = time
 //            node.scheduleFile(loop.file, at: time, completionHandler: nil)
             node.scheduleBuffer(loop.buffer, at: time, options: .loops, completionHandler: nil)
             node.play()
@@ -40,6 +52,13 @@ class Player: ObservableObject{
         func clear(){
             playing = nil
             node.stop()
+        }
+        func upddateLoopPosition(){
+            if let loop = playing, let startTime = startTime{
+                loopPosition = ( (AVAudioTime.seconds(forHostTime: mach_absolute_time()) - AVAudioTime.seconds(forHostTime: startTime.hostTime)) / loop.lengthInSeconds).truncatingRemainder(dividingBy: 1.0)
+            }else{
+                loopPosition = 0
+            }
         }
     }
 
@@ -111,7 +130,8 @@ class Player: ObservableObject{
                 let url:URL? = urls[index]
                 if let url = url{
                     try slot.replace(
-                        with: Loop(url: url, loop: flatLoops[index]) // WARNING: memory/time-intensive
+                        with: Loop(url: url, loop: flatLoops[index]), // WARNING: memory/time-intensive
+                        at: startTime
                     )
                 }
             }
@@ -135,7 +155,7 @@ class Player: ObservableObject{
     func replaceRandom(with loop: Rifff.Loop, rifff: Rifff, baseURL: URL) throws{
         if let slot = slots.first(where: { $0.playing == nil }) ?? slots.randomElement(){
             let nextStartTime = nextBarStartTime()
-            slot.replace(with: try Loop(url: url(baseURL, rifff: rifff, loop: loop), loop: loop), at: nextStartTime) // will be nil if nothing playing though
+            slot.replace(with: try Loop(url: url(baseURL, rifff: rifff, loop: loop), loop: loop), at: nextStartTime!) // will be nil if nothing playing though
         }
         objectWillChange.send()
     }
@@ -167,6 +187,12 @@ class Player: ObservableObject{
     }
     func stop(loop: Rifff.Loop){
         
+    }
+    
+    func updateSlotPositions(){
+        for slot in slots{
+            slot.upddateLoopPosition()
+        }
     }
 }
 

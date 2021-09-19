@@ -7,11 +7,34 @@
 
 import SwiftUI
 
+extension CGRect{
+    var center: CGPoint{
+        CGPoint(x: width / 2, y: height / 2)
+    }
+    var radius: CGFloat{
+        width / 2
+    }
+}
+
+struct ProgressCircle: Shape{
+    var progress: Double
+    func path(in rect: CGRect) -> Path {
+        var p = Path()
+        p.addArc(
+            center: rect.center,
+            radius: rect.radius,
+            startAngle: Angle(degrees: -90),
+            endAngle: Angle(degrees: (360 * progress) - 90),
+            clockwise: false
+        )
+        return p.strokedPath(.init(lineWidth: 3, lineCap: .round, dash: [3, 5], dashPhase: 0))
+    }
+}
+
 struct SlotView:View{
     @ObservedObject var slot: Player.Slot
     var body: some View{
-        Circle()
-            .stroke()
+        ProgressCircle(progress: slot.loopPosition)
             .frame(width: 100, height: 100)
             .foregroundColor(.red)
             .overlay(
@@ -119,6 +142,7 @@ struct ContentView: View {
                 self.playerDebugging = player.debugString
                 self.meterLevel = CGFloat(player.outputMeterLevel)
                 self.barPosition = player.barPosition
+                player.updateSlotPositions()
             })
             .onAppear{
                 RithnnnAppGroup.setLatest(
