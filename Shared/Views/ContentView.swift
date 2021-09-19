@@ -14,11 +14,14 @@ struct SlotView:View{
             .stroke()
             .frame(width: 100, height: 100)
             .foregroundColor(.red)
-            
             .overlay(
-                Text(slot.playing?.url.lastPathComponent ?? "-")
-                    .bold().font(.caption)
-                    .multilineTextAlignment(.center)
+                VStack {
+                    Text(slot.playing?.loop.number ?? "").font(.largeTitle)
+                    Text(slot.playing?.loop.user ?? "??").bold()
+                    Text(slot.playing?.loop.instrument ?? "")
+                }
+                .font(.caption)
+                .multilineTextAlignment(.center)
                     
                 , alignment: .center)
             .onTapGesture {
@@ -71,9 +74,11 @@ struct ContentView: View {
         GridItem(.flexible()),
     ]
     
-    let timer = Timer.publish(every: 0.01666, on: .main, in: .common).autoconnect()
+    // FIXME: change to display link instead of 1/60
+    let timer = Timer.publish(every: 1/60, on: .main, in: .common).autoconnect()
     @State var playerDebugging = ""
     @State var meterLevel: CGFloat = 0
+    @State var barPosition: TimeInterval = 0
     
     var body: some View {
         let rifffs = document.manifest.rifffs
@@ -85,7 +90,10 @@ struct ContentView: View {
             }.frame(maxWidth: .infinity).padding()
             Rectangle()
                 .fill(Color.green)
-                .frame(width: 150 * (meterLevel + 1), height: 2)
+                .frame(maxWidth: .infinity)
+                .frame(height: 2)
+                .scaleEffect(x: CGFloat(barPosition), y: 1, anchor: .leading)
+                
             HStack {
                 Text(playerDebugging)
                 Spacer()
@@ -108,8 +116,9 @@ struct ContentView: View {
                 TextField("UUID", text: Binding.constant(document.manifest.uuid.uuidString))
             }
             .onReceive(timer, perform: { _ in
-                playerDebugging = player.debugString
-                meterLevel = CGFloat(player.outputMeterLevel)
+                self.playerDebugging = player.debugString
+                self.meterLevel = CGFloat(player.outputMeterLevel)
+                self.barPosition = player.barPosition
             })
             .onAppear{
                 RithnnnAppGroup.setLatest(

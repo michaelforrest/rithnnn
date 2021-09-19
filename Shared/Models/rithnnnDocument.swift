@@ -31,6 +31,7 @@ public struct Rifff:Codable,Identifiable{
     public struct Loop:Codable, Identifiable{
         public var id: String { filename }
         public var filename: String
+        public var number: String
         public var user: String
         public var instrument: String
         public var tempo: Float
@@ -38,6 +39,7 @@ public struct Rifff:Codable,Identifiable{
         public init(filename: String, meta: String){
             self.filename = filename
             let components = meta.components(separatedBy: " - ")
+            self.number = components[0]
             self.user = components[1]
             self.instrument = components[2]
             self.tempo = Float(components[3].replacingOccurrences(of: "BPM", with: "")) ?? 120

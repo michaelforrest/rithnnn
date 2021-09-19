@@ -14,8 +14,10 @@ class Player: ObservableObject{
         let url: URL
         let buffer: AVAudioPCMBuffer
         let file: AVAudioFile
-        init(url: URL) throws{
+        let loop: Rifff.Loop
+        init(url: URL, loop: Rifff.Loop) throws{
             self.url = url
+            self.loop = loop
             let file = try AVAudioFile(forReading: url)
             self.file = file
             let frameCount = AVAudioFrameCount(file.length) // from AVAudioFramePosition
@@ -46,15 +48,22 @@ class Player: ObservableObject{
     var startTime: AVAudioTime?
     let TapBufferFrames:AVAudioFrameCount = 512
     
+    
     let engine = AVAudioEngine()
     @Published var slots = (0..<9).map{ _ in Slot() }
     var outputMeterLevel: Float = 0
+    var timeInBars: TimeInterval{
+        (AVAudioTime.seconds(forHostTime: mach_absolute_time()) - self.startTimeInSeconds) / (document?.barLength ?? 1.0)
+    }
+    var barPosition: TimeInterval{
+        self.timeInBars.truncatingRemainder(dividingBy: 1.0)
+    }
     
     var document: rithnnnDocument?
     
     var debugString: String {
         engine.isRunning ?
-            "\(AVAudioTime.seconds(forHostTime: slots.first?.node.lastRenderTime?.hostTime ?? 0))\n\(AVAudioTime.seconds(forHostTime: nextBarStartTime()?.hostTime ?? 0))" : "Not Running"
+            "\(timeInBars)\n\(AVAudioTime.seconds(forHostTime: slots.first?.node.lastRenderTime?.hostTime ?? 0))\n\(AVAudioTime.seconds(forHostTime: nextBarStartTime()?.hostTime ?? 0))" : "Not Running"
     }
     
     func url(_ baseURL:URL, rifff: Rifff, loop: Rifff.Loop)->URL{
@@ -71,7 +80,7 @@ class Player: ObservableObject{
               let fileWrapper = set.container.fileWrappers?[firstRifff.dirName]?.fileWrappers?[firstLoop.filename]
               else { return }
         engine.stop()
-        let exampleLoop = try Loop(url: self.url(baseURL, rifff: firstRifff, loop: firstLoop))
+        let exampleLoop = try Loop(url: self.url(baseURL, rifff: firstRifff, loop: firstLoop), loop: firstLoop)
         self.document = set
         slots.forEach { slot in
             engine.attach(slot.node)
@@ -79,14 +88,13 @@ class Player: ObservableObject{
         }
         
         let format = engine.mainMixerNode.outputFormat(forBus: 0)
-        engine.outputNode.removeTap(onBus: 0)
+        engine.mainMixerNode.removeTap(onBus: 0)
         engine.mainMixerNode.installTap(onBus: 0, bufferSize: TapBufferFrames, format: format) { buffer, time in
             let arraySize = Int(buffer.frameLength)
             let samples = Array(UnsafeBufferPointer(start: buffer.floatChannelData![0], count:arraySize))
             let total = samples.reduce(0, +)
-            DispatchQueue.main.async{
-                self.outputMeterLevel = total / Float(buffer.frameLength)
-            }
+            self.outputMeterLevel = total / Float(buffer.frameLength)
+            
         }
         engine.prepare()
         try engine.start()
@@ -96,13 +104,14 @@ class Player: ObservableObject{
             slot.node.play(at: startTime)
         }
         self.startTime = startTime
+        let flatLoops = set.manifest.rifffs.flatMap{$0.loops}
         for (index, slot) in slots.enumerated(){
             let urls = set.manifest.rifffs.flatMap{ rifff in rifff.loops.map{ self.url(baseURL, rifff: rifff, loop: $0) } }
             if index < urls.count{
                 let url:URL? = urls[index]
                 if let url = url{
                     try slot.replace(
-                        with: Loop(url: url) // WARNING: memory/time-intensive
+                        with: Loop(url: url, loop: flatLoops[index]) // WARNING: memory/time-intensive
                     )
                 }
             }
@@ -126,12 +135,13 @@ class Player: ObservableObject{
     func replaceRandom(with loop: Rifff.Loop, rifff: Rifff, baseURL: URL) throws{
         if let slot = slots.first(where: { $0.playing == nil }) ?? slots.randomElement(){
             let nextStartTime = nextBarStartTime()
-            slot.replace(with: try Loop(url: url(baseURL, rifff: rifff, loop: loop)), at: nextStartTime) // will be nil if nothing playing though
+            slot.replace(with: try Loop(url: url(baseURL, rifff: rifff, loop: loop), loop: loop), at: nextStartTime) // will be nil if nothing playing though
         }
         objectWillChange.send()
     }
     
     var startTimeInSeconds: TimeInterval{ AVAudioTime.seconds(forHostTime: startTime?.hostTime ?? 0) }
+    
     func nextBarStartTime()->AVAudioTime?{
         guard let doc = document else { return nil }
         let secondsPlaying = AVAudioTime.seconds(forHostTime: mach_absolute_time()) - startTimeInSeconds
