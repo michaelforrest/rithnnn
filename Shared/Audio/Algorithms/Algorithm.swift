@@ -6,12 +6,20 @@
 //
 
 import Foundation
+import AVKit
 
-struct Algorithm:Codable{
+enum RecalculationFrequency:String,Codable{
+    case bar
+}
+
+protocol Algorithm{
+    var updatesEvery: RecalculationFrequency { get }
     
-    enum RecalculationFrequency:String,Codable{
-        case bar
-    }
+    func start(document: RithnnnDocument, player: Player, at time: AVAudioTime) throws
+    
+    func scheduleChanges(at time: AVAudioTime, on player: Player, document: RithnnnDocument) throws
+    
+    
     /*
      Concepts:
      
@@ -42,6 +50,27 @@ struct Algorithm:Codable{
      but could also be some sort of envelope thing
      can know about groups of loops as found in rifffs
      */
-    var updatesEvery: RecalculationFrequency = .bar
+}
+
+extension Algorithm{
+    func playAllLoops(rifff: Rifff, player: Player, at time: AVAudioTime) throws{
+        let urls = rifff.loops.map{ player.url(for: rifff, loop: $0) }
+
+        for (index, slot) in player.slots.enumerated(){
+            if index < urls.count{
+                let url:URL? = urls[index]
+                if let url = url{
+                    try slot.replace(
+                        with: Player.AudioFileLoop(url: url, loop: rifff.loops[index]), // WARNING: memory/time-intensive
+                        at: time
+                    )
+                }else{
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: time.hostTime)){
+                        slot.clear()
+                    }
+                }
+            }
+        }
+    }
     
 }

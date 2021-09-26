@@ -7,17 +7,27 @@
 
 import SwiftUI
 
+extension Player.AudioSlot{
+    var stateColor: Color{
+        if isMuted {
+            return .gray
+        }else{
+            return loopPosition < 0 ? .orange : .green
+        }
+    }
+}
+
 struct SlotView:View{
-    @ObservedObject var slot: Player.Slot
+    @ObservedObject var slot: Player.AudioSlot
     var body: some View{
         ProgressCircle(progress: slot.loopPosition)
             .frame(width: 100, height: 100)
-            .foregroundColor(slot.loopPosition < 0 ? .orange : .green)
+            .foregroundColor(slot.stateColor)
             .overlay(
                 VStack {
-                    Text(slot.playing?.loop.number ?? "").font(.largeTitle)
-                    Text(slot.playing?.loop.user ?? "??").bold()
-                    Text(slot.playing?.loop.instrument ?? "")
+                    Text(slot.currentAudioLoop?.loop.number ?? "").font(.largeTitle)
+                    Text(slot.currentAudioLoop?.loop.user ?? "??").bold()
+                    Text(slot.currentAudioLoop?.loop.instrument ?? "")
                 }
                 .font(.caption)
                 .multilineTextAlignment(.center)

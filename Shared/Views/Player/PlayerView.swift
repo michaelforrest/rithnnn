@@ -15,6 +15,7 @@ struct PlayerView: View {
     let timer = Timer.publish(every: 1/60, on: .main, in: .common).autoconnect()
     @State var meterLevel: CGFloat = 0
     @State var barPosition: TimeInterval = 0
+    
 
     var body: some View {
         VStack{

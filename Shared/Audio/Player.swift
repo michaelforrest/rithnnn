@@ -7,6 +7,7 @@
 
 import Foundation
 import AVKit
+import Compression
 
 class Player: ObservableObject{
     @Published var error: String?
@@ -15,7 +16,9 @@ class Player: ObservableObject{
     let TapBufferFrames:AVAudioFrameCount = 512
         
     let engine = AVAudioEngine()
-    @Published var slots = (0..<8).map{ _ in Slot() }
+    @Published var slots = (0..<8).map{ _ in AudioSlot() }
+    
+    @Published var currentAlgorithm: Algorithm = ToggleOneSlotEveryBar()
     
     var outputMeterLevel: Float = 0
     
@@ -46,7 +49,7 @@ class Player: ObservableObject{
         
         engine.stop()
         // take a random loop, assuming all loops have the same audio settings, just to get the engine set up correctly.
-        let exampleLoop = try Loop(url: self.url(for: firstRifff, loop: firstLoop), loop: firstLoop)
+        let exampleLoop = try AudioFileLoop(url: self.url(for: firstRifff, loop: firstLoop), loop: firstLoop)
         slots.forEach { slot in
             engine.attach(slot.node)
             engine.connect(slot.node, to: engine.mainMixerNode, format: exampleLoop.file.processingFormat) // so that's where we get the audio format
@@ -66,7 +69,9 @@ class Player: ObservableObject{
             if let startTime = self.startTime {
                 if (time.sampleTime - startTime.sampleTime) % barLengthInFrames < Int64(buffer.frameLength){
 //                    print("SCHEDULE NEXT BAR CHANGES START:",startTime.sampleTime, "BAR", barLengthInFrames, "BUF",buffer.frameLength,"TIME", time.sampleTime, "RESULT", (time.sampleTime - startTime.sampleTime) % barLengthInFrames)
-                    self.scheduleBarChanges()
+                    if let nextBarStartTime = self.nextBarStartTime(hostTime: time.hostTime){
+                        try? self.scheduleBarChanges(at: nextBarStartTime)
+                    }
                 }
             }
         }
@@ -74,7 +79,15 @@ class Player: ObservableObject{
         engine.prepare()
         try engine.start()
         
-        try playFirstFewLoops()
+        let startTime = nextBarStartTime(hostTime: mach_absolute_time()) ?? AVAudioTime(hostTime: mach_absolute_time())
+        
+        slots.forEach { slot in
+            slot.node.play(at: startTime) // not sure if this is needed? But I feel like I need to start whatever's there in sync.
+        }
+        try currentAlgorithm.start(document: document, player: self, at: startTime)
+        
+        self.startTime = startTime
+        
         objectWillChange.send()
     }
     
@@ -83,28 +96,6 @@ class Player: ObservableObject{
     }
     func barPosition(hostTime: UInt64) -> TimeInterval{
         self.timeInBars(hostTime: hostTime).truncatingRemainder(dividingBy: 1.0)
-    }
-    
-    
-    func playFirstFewLoops() throws{
-        let startTime = nextBarStartTime(hostTime: mach_absolute_time()) ?? AVAudioTime(hostTime: mach_absolute_time())
-        slots.forEach { slot in
-            slot.node.play(at: startTime)
-        }
-        self.startTime = startTime
-        let flatLoops = document.manifest.rifffs.flatMap{$0.loops}
-        for (index, slot) in slots.enumerated(){
-            let urls = document.manifest.rifffs.flatMap{ rifff in rifff.loops.map{ self.url(for: rifff, loop: $0) } }
-            if index < urls.count{
-                let url:URL? = urls[index]
-                if let url = url{
-                    try slot.replace(
-                        with: Loop(url: url, loop: flatLoops[index]), // WARNING: memory/time-intensive
-                        at: startTime
-                    )
-                }
-            }
-        }
     }
     
     
@@ -118,13 +109,13 @@ class Player: ObservableObject{
         false
     }
     func isPlaying(url: URL)->Bool{
-        slots.compactMap{$0.playing?.url}.contains(url)
+        slots.compactMap{$0.currentAudioLoop?.url}.contains(url)
     }
     
     func replaceRandom(with loop: Rifff.Loop, rifff: Rifff) throws{
-        if let slot = slots.first(where: { $0.playing == nil }) ?? slots.randomElement(){
+        if let slot = slots.first(where: { $0.currentAudioLoop == nil }) ?? slots.randomElement(){
             let nextStartTime = nextBarStartTime(hostTime: mach_absolute_time())
-            slot.replace(with: try Loop(url: url(for: rifff, loop: loop), loop: loop), at: nextStartTime!) // will be nil if nothing playing though
+            slot.replace(with: try AudioFileLoop(url: url(for: rifff, loop: loop), loop: loop), at: nextStartTime!) // will be nil if nothing playing though
         }
         objectWillChange.send()
     }
@@ -149,7 +140,7 @@ class Player: ObservableObject{
      let nextTime = anchor + doc.barLength.hostTime*/
     
     func stop(url: URL){
-        guard let slot = slots.first(where: { $0.playing?.url == url}) else { return }
+        guard let slot = slots.first(where: { $0.currentAudioLoop?.url == url}) else { return }
         objectWillChange.send()
         slot.clear()
         
@@ -164,8 +155,14 @@ class Player: ObservableObject{
         }
     }
     
-    func scheduleBarChanges(){
-        
+    private func scheduleBarChanges(at time: AVAudioTime) throws{
+        try self.currentAlgorithm.scheduleChanges(at: time, on: self, document: document)
+    }
+    
+    func run(at time: AVAudioTime, callback: @escaping ()->Void){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: time.hostTime)) {
+            callback()
+        }
     }
     
 }

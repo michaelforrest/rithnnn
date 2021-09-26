@@ -8,7 +8,7 @@
 import Foundation
 import AVKit
 extension Player{
-    struct Loop{
+    struct AudioFileLoop{
         let url: URL
         let buffer: AVAudioPCMBuffer
         let file: AVAudioFile
