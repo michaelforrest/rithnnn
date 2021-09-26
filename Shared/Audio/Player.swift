@@ -70,7 +70,9 @@ class Player: ObservableObject{
     
     let engine = AVAudioEngine()
     @Published var slots = (0..<9).map{ _ in Slot() }
+    
     var outputMeterLevel: Float = 0
+    
     var timeInBars: TimeInterval{
         (AVAudioTime.seconds(forHostTime: mach_absolute_time()) - self.startTimeInSeconds) / (document?.barLength ?? 1.0)
     }
@@ -78,7 +80,7 @@ class Player: ObservableObject{
         self.timeInBars.truncatingRemainder(dividingBy: 1.0)
     }
     
-    var document: rithnnnDocument?
+    var document: RithnnnDocument?
     
     var debugString: String {
         engine.isRunning ?
@@ -93,26 +95,27 @@ class Player: ObservableObject{
     }
     
     // https://stackoverflow.com/a/52960011/191991
-    func play(set: rithnnnDocument, baseURL: URL) throws {
+    func play(set: RithnnnDocument, baseURL: URL) throws {
         guard let firstRifff = set.manifest.rifffs.first,
-              let firstLoop = firstRifff.loops.first,
-              let fileWrapper = set.container.fileWrappers?[firstRifff.dirName]?.fileWrappers?[firstLoop.filename]
-              else { return }
+              let firstLoop = firstRifff.loops.first else { return }
+        
         engine.stop()
+        // take a random loop, assuming all loops have the same audio settings, just to get the engine set up correctly.
         let exampleLoop = try Loop(url: self.url(baseURL, rifff: firstRifff, loop: firstLoop), loop: firstLoop)
         self.document = set
         slots.forEach { slot in
             engine.attach(slot.node)
-            engine.connect(slot.node, to: engine.mainMixerNode, format: exampleLoop.file.processingFormat)
+            engine.connect(slot.node, to: engine.mainMixerNode, format: exampleLoop.file.processingFormat) // so that's where we get the audio format
         }
         
-        let format = engine.mainMixerNode.outputFormat(forBus: 0)
+        let busFormat = engine.mainMixerNode.outputFormat(forBus: 0)
         engine.mainMixerNode.removeTap(onBus: 0)
-        engine.mainMixerNode.installTap(onBus: 0, bufferSize: TapBufferFrames, format: format) { buffer, time in
+        
+        engine.mainMixerNode.installTap(onBus: 0, bufferSize: TapBufferFrames, format: busFormat) { buffer, time in
             let arraySize = Int(buffer.frameLength)
             let samples = Array(UnsafeBufferPointer(start: buffer.floatChannelData![0], count:arraySize))
             let total = samples.reduce(0, +)
-            self.outputMeterLevel = total / Float(buffer.frameLength)
+            self.outputMeterLevel = Float(total) / Float(buffer.frameLength)
             
         }
         engine.prepare()
@@ -196,7 +199,7 @@ class Player: ObservableObject{
     }
 }
 
-extension rithnnnDocument{
+extension RithnnnDocument{
     var barLength: TimeInterval{
         (60 / manifest.tempo) * 4
     }

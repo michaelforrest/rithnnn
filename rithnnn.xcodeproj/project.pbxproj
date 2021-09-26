@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC07D1312700913E00C04118 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D1302700913E00C04118 /* UIKit+Extensions.swift */; };
+		AC07D1332700916400C04118 /* ProgressCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D1322700916400C04118 /* ProgressCircle.swift */; };
+		AC07D1352700918900C04118 /* RifffListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D1342700918900C04118 /* RifffListing.swift */; };
+		AC07D138270091B800C04118 /* SlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D137270091B800C04118 /* SlotView.swift */; };
+		AC07D13A2700923000C04118 /* Rifff.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D1392700923000C04118 /* Rifff.swift */; };
+		AC07D13C2700925000C04118 /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D13B2700925000C04118 /* Manifest.swift */; };
+		AC07D13E2700925D00C04118 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D13D2700925D00C04118 /* Types.swift */; };
+		AC07D1402700926E00C04118 /* RifffIngestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D13F2700926E00C04118 /* RifffIngestion.swift */; };
 		AC46939A26ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip in Resources */ = {isa = PBXBuildFile; fileRef = AC46939926ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip */; };
 		AC6DB8CE26EDDCF80058139D /* ShareHomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8CD26EDDCF80058139D /* ShareHomeTableViewController.swift */; };
 		AC6DB8D626EDDDCC0058139D /* RootNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8D526EDDDCC0058139D /* RootNavViewController.swift */; };
@@ -17,12 +25,12 @@
 		ACDC6D9426EE0AE600FEC5D2 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC6D9326EE0AE600FEC5D2 /* Algorithm.swift */; };
 		ACE2AE1726EC961700775DB1 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AE1626EC961700775DB1 /* Tests_iOS.swift */; };
 		ACE2AE2226EC961700775DB1 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AE2126EC961700775DB1 /* Tests_macOS.swift */; };
-		ACE2AE2426EC961700775DB1 /* rithnnnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */; };
-		ACE2AE2526EC961700775DB1 /* rithnnnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */; };
-		ACE2AE2626EC961700775DB1 /* rithnnnDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFB26EC961600775DB1 /* rithnnnDocument.swift */; };
-		ACE2AE2726EC961700775DB1 /* rithnnnDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFB26EC961600775DB1 /* rithnnnDocument.swift */; };
-		ACE2AE2826EC961700775DB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFC26EC961600775DB1 /* ContentView.swift */; };
-		ACE2AE2926EC961700775DB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFC26EC961600775DB1 /* ContentView.swift */; };
+		ACE2AE2426EC961700775DB1 /* RithnnnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFA26EC961600775DB1 /* RithnnnApp.swift */; };
+		ACE2AE2526EC961700775DB1 /* RithnnnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFA26EC961600775DB1 /* RithnnnApp.swift */; };
+		ACE2AE2626EC961700775DB1 /* RithnnnDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFB26EC961600775DB1 /* RithnnnDocument.swift */; };
+		ACE2AE2726EC961700775DB1 /* RithnnnDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFB26EC961600775DB1 /* RithnnnDocument.swift */; };
+		ACE2AE2826EC961700775DB1 /* DebugMasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFC26EC961600775DB1 /* DebugMasterView.swift */; };
+		ACE2AE2926EC961700775DB1 /* DebugMasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2ADFC26EC961600775DB1 /* DebugMasterView.swift */; };
 		ACE2AE2A26EC961700775DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACE2ADFD26EC961700775DB1 /* Assets.xcassets */; };
 		ACE2AE2B26EC961700775DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACE2ADFD26EC961700775DB1 /* Assets.xcassets */; };
 		ACE2AE4D26EC9E0800775DB1 /* FakeEndlesssApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2AE4C26EC9E0800775DB1 /* FakeEndlesssApp.swift */; };
@@ -78,15 +86,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AC07D1302700913E00C04118 /* UIKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Extensions.swift"; sourceTree = "<group>"; };
+		AC07D1322700916400C04118 /* ProgressCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircle.swift; sourceTree = "<group>"; };
+		AC07D1342700918900C04118 /* RifffListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RifffListing.swift; sourceTree = "<group>"; };
+		AC07D137270091B800C04118 /* SlotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotView.swift; sourceTree = "<group>"; };
+		AC07D1392700923000C04118 /* Rifff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rifff.swift; sourceTree = "<group>"; };
+		AC07D13B2700925000C04118 /* Manifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
+		AC07D13D2700925D00C04118 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		AC07D13F2700926E00C04118 /* RifffIngestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RifffIngestion.swift; sourceTree = "<group>"; };
 		AC46939926ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip"; sourceTree = "<group>"; };
 		AC6DB8CD26EDDCF80058139D /* ShareHomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareHomeTableViewController.swift; sourceTree = "<group>"; };
 		AC6DB8D526EDDDCC0058139D /* RootNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavViewController.swift; sourceTree = "<group>"; };
 		AC6DB8E326EDE42E0058139D /* DocumentListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListTableViewController.swift; sourceTree = "<group>"; };
 		AC6DB8EB26EDE8E20058139D /* RithnnnAppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RithnnnAppGroup.swift; sourceTree = "<group>"; };
 		ACDC6D9326EE0AE600FEC5D2 /* Algorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
-		ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rithnnnApp.swift; sourceTree = "<group>"; };
-		ACE2ADFB26EC961600775DB1 /* rithnnnDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rithnnnDocument.swift; sourceTree = "<group>"; };
-		ACE2ADFC26EC961600775DB1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		ACE2ADFA26EC961600775DB1 /* RithnnnApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RithnnnApp.swift; sourceTree = "<group>"; };
+		ACE2ADFB26EC961600775DB1 /* RithnnnDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RithnnnDocument.swift; sourceTree = "<group>"; };
+		ACE2ADFC26EC961600775DB1 /* DebugMasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMasterView.swift; sourceTree = "<group>"; };
 		ACE2ADFD26EC961700775DB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACE2AE0226EC961700775DB1 /* rithnnn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rithnnn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE2AE0526EC961700775DB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -164,6 +180,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC07D12D2700910F00C04118 /* Dev */ = {
+			isa = PBXGroup;
+			children = (
+				ACE2ADFC26EC961600775DB1 /* DebugMasterView.swift */,
+				AC07D1342700918900C04118 /* RifffListing.swift */,
+			);
+			path = Dev;
+			sourceTree = "<group>";
+		};
+		AC07D12E2700912500C04118 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				AC07D1322700916400C04118 /* ProgressCircle.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		AC07D12F2700912F00C04118 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				AC07D1302700913E00C04118 /* UIKit+Extensions.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		AC07D136270091AE00C04118 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				AC07D137270091B800C04118 /* SlotView.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
 		ACDC6D9226EE0AC800FEC5D2 /* Algorithms */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,7 +241,7 @@
 			children = (
 				ACE2AF4526ECBB5E00775DB1 /* App */,
 				ACE2AF4326ECBB4000775DB1 /* Audio */,
-				ACE2AF4226ECBB3B00775DB1 /* Models */,
+				ACE2AF4226ECBB3B00775DB1 /* Document */,
 				ACE2AF4126ECBB3300775DB1 /* Views */,
 			);
 			path = Shared;
@@ -286,17 +335,24 @@
 		ACE2AF4126ECBB3300775DB1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				ACE2ADFC26EC961600775DB1 /* ContentView.swift */,
+				AC07D136270091AE00C04118 /* Player */,
+				AC07D12F2700912F00C04118 /* Support */,
+				AC07D12E2700912500C04118 /* UI */,
+				AC07D12D2700910F00C04118 /* Dev */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		ACE2AF4226ECBB3B00775DB1 /* Models */ = {
+		ACE2AF4226ECBB3B00775DB1 /* Document */ = {
 			isa = PBXGroup;
 			children = (
-				ACE2ADFB26EC961600775DB1 /* rithnnnDocument.swift */,
+				ACE2ADFB26EC961600775DB1 /* RithnnnDocument.swift */,
+				AC07D1392700923000C04118 /* Rifff.swift */,
+				AC07D13F2700926E00C04118 /* RifffIngestion.swift */,
+				AC07D13B2700925000C04118 /* Manifest.swift */,
+				AC07D13D2700925D00C04118 /* Types.swift */,
 			);
-			path = Models;
+			path = Document;
 			sourceTree = "<group>";
 		};
 		ACE2AF4326ECBB4000775DB1 /* Audio */ = {
@@ -311,7 +367,7 @@
 		ACE2AF4526ECBB5E00775DB1 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				ACE2ADFA26EC961600775DB1 /* rithnnnApp.swift */,
+				ACE2ADFA26EC961600775DB1 /* RithnnnApp.swift */,
 				ACE2AF2C26ECBA9000775DB1 /* AppDelegate.swift */,
 				ACE2ADFD26EC961700775DB1 /* Assets.xcassets */,
 				AC6DB8EB26EDE8E20058139D /* RithnnnAppGroup.swift */,
@@ -548,11 +604,19 @@
 			files = (
 				ACDC6D9426EE0AE600FEC5D2 /* Algorithm.swift in Sources */,
 				ACE2AF3426ECBAAC00775DB1 /* AppDelegate.swift in Sources */,
+				AC07D138270091B800C04118 /* SlotView.swift in Sources */,
+				AC07D13E2700925D00C04118 /* Types.swift in Sources */,
+				AC07D13A2700923000C04118 /* Rifff.swift in Sources */,
+				AC07D1352700918900C04118 /* RifffListing.swift in Sources */,
+				AC07D1312700913E00C04118 /* UIKit+Extensions.swift in Sources */,
 				AC6DB8F326EDE8FD0058139D /* RithnnnAppGroup.swift in Sources */,
-				ACE2AE2626EC961700775DB1 /* rithnnnDocument.swift in Sources */,
-				ACE2AE2426EC961700775DB1 /* rithnnnApp.swift in Sources */,
+				AC07D1332700916400C04118 /* ProgressCircle.swift in Sources */,
+				ACE2AE2626EC961700775DB1 /* RithnnnDocument.swift in Sources */,
+				AC07D1402700926E00C04118 /* RifffIngestion.swift in Sources */,
+				AC07D13C2700925000C04118 /* Manifest.swift in Sources */,
+				ACE2AE2426EC961700775DB1 /* RithnnnApp.swift in Sources */,
 				ACE2AF5426ECBB7B00775DB1 /* Player.swift in Sources */,
-				ACE2AE2826EC961700775DB1 /* ContentView.swift in Sources */,
+				ACE2AE2826EC961700775DB1 /* DebugMasterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,9 +624,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACE2AE2726EC961700775DB1 /* rithnnnDocument.swift in Sources */,
-				ACE2AE2526EC961700775DB1 /* rithnnnApp.swift in Sources */,
-				ACE2AE2926EC961700775DB1 /* ContentView.swift in Sources */,
+				ACE2AE2726EC961700775DB1 /* RithnnnDocument.swift in Sources */,
+				ACE2AE2526EC961700775DB1 /* RithnnnApp.swift in Sources */,
+				ACE2AE2926EC961700775DB1 /* DebugMasterView.swift in Sources */,
 				AC6DB8FA26EDE9020058139D /* RithnnnAppGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,87 +7,8 @@
 
 import SwiftUI
 
-extension CGRect{
-    var center: CGPoint{
-        CGPoint(x: width / 2, y: height / 2)
-    }
-    var radius: CGFloat{
-        width / 2
-    }
-}
-
-struct ProgressCircle: Shape{
-    var progress: Double
-    func path(in rect: CGRect) -> Path {
-        var p = Path()
-        p.addArc(
-            center: rect.center,
-            radius: rect.radius,
-            startAngle: Angle(degrees: -90),
-            endAngle: Angle(degrees: (360 * progress) - 90),
-            clockwise: false
-        )
-        return p.strokedPath(.init(lineWidth: 3, lineCap: .round, dash: progress < 0 ? [3, 5] : [1], dashPhase: 0))
-    }
-}
-
-struct SlotView:View{
-    @ObservedObject var slot: Player.Slot
-    var body: some View{
-        ProgressCircle(progress: slot.loopPosition)
-            .frame(width: 100, height: 100)
-            .foregroundColor(slot.loopPosition < 0 ? .orange : .green)
-            .overlay(
-                VStack {
-                    Text(slot.playing?.loop.number ?? "").font(.largeTitle)
-                    Text(slot.playing?.loop.user ?? "??").bold()
-                    Text(slot.playing?.loop.instrument ?? "")
-                }
-                .font(.caption)
-                .multilineTextAlignment(.center)
-                    
-                , alignment: .center)
-            .onTapGesture {
-                slot.clear()
-            }
-    }
-}
-
-struct RifffListing: View{
-    var rifff: Rifff
-    var player: Player
-    var baseURL: URL
-    var body: some View{
-        HStack{
-            Image(systemName: "doc.zipper")
-            Text(rifff.zipURL.lastPathComponent)
-            Spacer()
-            Image(systemName: "checkmark")
-        }
-        .foregroundColor(.white)
-        .background(Color.gray)
-        ForEach(rifff.loops) { loop in
-            HStack {
-                Image(systemName: "waveform.circle")
-                Text(loop.filename)
-                Spacer()
-                if player.isPlaying(loop: loop){
-                    Image(systemName: "speaker.wave.2.circle")
-                }
-            }.onTapGesture {
-                if player.isPlaying(loop: loop){
-                    player.stop(loop: loop)
-                }else{
-                    try? player.replaceRandom(with: loop,rifff: rifff, baseURL: baseURL)
-                }
-            }
-        }
-        
-    }
-}
-
-struct ContentView: View {
-    @Binding var document: rithnnnDocument
+struct DebugMasterView: View {
+    @Binding var document: RithnnnDocument
     @ObservedObject var player: Player
     var baseURL: URL
     
@@ -175,6 +96,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(document: .constant(rithnnnDocument()), player: Player(), baseURL: URL(string: "")!)
+        DebugMasterView(document: .constant(RithnnnDocument()), player: Player(), baseURL: URL(string: "")!)
     }
 }

@@ -8,14 +8,14 @@
 import SwiftUI
 
 @main
-struct rithnnnApp: App {
+struct RithnnnApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var player = Player()
     
     var body: some Scene {
-        DocumentGroup(newDocument: rithnnnDocument()) { file in
-            ContentView(document: file.$document, player: player, baseURL: file.fileURL!)
+        DocumentGroup(newDocument: RithnnnDocument()) { file in
+            DebugMasterView(document: file.$document, player: player, baseURL: file.fileURL!)
                 .onAppear{
                     print("file url", file.fileURL!.absoluteString.removingPercentEncoding!)
                     RithnnnAppGroup.syncDocumentInfo()
