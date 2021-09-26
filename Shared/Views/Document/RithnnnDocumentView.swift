@@ -22,9 +22,13 @@ struct RithnnnDocumentView: View {
     }
     
     var body: some View {
-        PlayerView(player: player)
-        RifffIngestion(document: $document, baseURL: baseURL)
-        DocumentDebugView(document: document, player: player)
+        ScrollView{
+            PlayerView(player: player)
+            RifffIngestion(document: $document, baseURL: baseURL)
+    //        DocumentDebugView(document: document, player: player)
+        }
+        .navigationBarHidden(true)
+        .statusBar(hidden: true)
     }
 }
 
