@@ -27,3 +27,5 @@ DerivedData/
 ## Gcc Patch
 /*.gcno
 rithnnn.xcodeproj/xcuserdata/mf.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+rithnnn.app.dSYM.zip
+rithnnn.ipa

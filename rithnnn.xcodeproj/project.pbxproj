@@ -257,11 +257,11 @@
 				ACE2AF0326ECAA0C00775DB1 /* rithnnn.entitlements */,
 				ACE2ADF926EC961600775DB1 /* Shared */,
 				ACE2AE0426EC961700775DB1 /* iOS */,
+				ACE2AE7D26ECA09C00775DB1 /* ShareExtension */,
 				ACE2AE0B26EC961700775DB1 /* macOS */,
 				ACE2AE1526EC961700775DB1 /* Tests iOS */,
 				ACE2AE2026EC961700775DB1 /* Tests macOS */,
 				ACE2AE4B26EC9E0800775DB1 /* FakeEndlesss */,
-				ACE2AE7D26ECA09C00775DB1 /* ShareExtension */,
 				ACE2AE0326EC961700775DB1 /* Products */,
 			);
 			sourceTree = "<group>";
