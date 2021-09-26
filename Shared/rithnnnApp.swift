@@ -15,9 +15,10 @@ struct rithnnnApp: App {
     
     var body: some Scene {
         DocumentGroup(newDocument: rithnnnDocument()) { file in
-            ContentView(document: file.$document, player: player, baseURL: file.fileURL!).onAppear{
-                RithnnnAppGroup.syncDocumentInfo()
-            }
+            ContentView(document: file.$document, player: player, baseURL: file.fileURL!)
+                .onAppear{
+                    RithnnnAppGroup.syncDocumentInfo()
+                }
         }
     }
 }
