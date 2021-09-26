@@ -12,26 +12,20 @@ struct DocumentDebugView: View {
     var player: Player
 
     var body: some View {
-       VStack {
-            List {
-                ForEach(document.unprocessedZips, id: \.self){ url in
-                    HStack{
-                        Image(systemName: "doc.zipper")
-                        Text(url.lastPathComponent)
-                        Spacer()
-                        ProgressView()
-                    }
+        VStack {
+            ForEach(document.unprocessedZips, id: \.self){ url in
+                HStack{
+                    Image(systemName: "doc.zipper")
+                    Text(url.lastPathComponent)
+                    Spacer()
+                    ProgressView()
                 }
-                ForEach(document.manifest.rifffs){ rifff in
-                    RifffListing(rifff: rifff, player: player)
-                }
-                TextField("UUID", text: Binding.constant(document.manifest.uuid.uuidString))
             }
-           
-            
-            
+            ForEach(document.manifest.rifffs){ rifff in
+                RifffListing(rifff: rifff, player: player)
+            }
+            TextField("UUID", text: Binding.constant(document.manifest.uuid.uuidString))
         }
-        
     }
     
 }

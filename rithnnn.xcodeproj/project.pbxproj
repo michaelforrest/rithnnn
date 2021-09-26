@@ -20,6 +20,7 @@
 		AC07D1492700960000C04118 /* Slot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D1482700960000C04118 /* Slot.swift */; };
 		AC07D14B2700964700C04118 /* Loop.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D14A2700964700C04118 /* Loop.swift */; };
 		AC07D14D2700980800C04118 /* RifffIngestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D14C2700980800C04118 /* RifffIngestion.swift */; };
+		AC07D14F27009F1700C04118 /* PlayerDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D14E27009F1700C04118 /* PlayerDebugView.swift */; };
 		AC46939A26ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip in Resources */ = {isa = PBXBuildFile; fileRef = AC46939926ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip */; };
 		AC6DB8CE26EDDCF80058139D /* ShareHomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8CD26EDDCF80058139D /* ShareHomeTableViewController.swift */; };
 		AC6DB8D626EDDDCC0058139D /* RootNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8D526EDDDCC0058139D /* RootNavViewController.swift */; };
@@ -104,6 +105,7 @@
 		AC07D1482700960000C04118 /* Slot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slot.swift; sourceTree = "<group>"; };
 		AC07D14A2700964700C04118 /* Loop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loop.swift; sourceTree = "<group>"; };
 		AC07D14C2700980800C04118 /* RifffIngestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RifffIngestion.swift; sourceTree = "<group>"; };
+		AC07D14E27009F1700C04118 /* PlayerDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDebugView.swift; sourceTree = "<group>"; };
 		AC46939926ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip"; sourceTree = "<group>"; };
 		AC6DB8CD26EDDCF80058139D /* ShareHomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareHomeTableViewController.swift; sourceTree = "<group>"; };
 		AC6DB8D526EDDDCC0058139D /* RootNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavViewController.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			children = (
 				AC07D143270094AE00C04118 /* PlayerView.swift */,
 				AC07D137270091B800C04118 /* SlotView.swift */,
+				AC07D14E27009F1700C04118 /* PlayerDebugView.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -627,6 +630,7 @@
 			files = (
 				ACDC6D9426EE0AE600FEC5D2 /* Algorithm.swift in Sources */,
 				AC07D1492700960000C04118 /* Slot.swift in Sources */,
+				AC07D14F27009F1700C04118 /* PlayerDebugView.swift in Sources */,
 				ACE2AF3426ECBAAC00775DB1 /* AppDelegate.swift in Sources */,
 				AC07D138270091B800C04118 /* SlotView.swift in Sources */,
 				AC07D14D2700980800C04118 /* RifffIngestion.swift in Sources */,

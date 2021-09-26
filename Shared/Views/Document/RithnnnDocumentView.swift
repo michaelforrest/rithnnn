@@ -12,6 +12,8 @@ struct RithnnnDocumentView: View {
     let baseURL: URL
     let player: Player
     
+    @State var isDebugging = false
+    
     init(document: Binding<RithnnnDocument>, baseURL: URL){
         _document = document
         self.baseURL = baseURL
@@ -23,12 +25,20 @@ struct RithnnnDocumentView: View {
     
     var body: some View {
         ScrollView{
-            PlayerView(player: player)
+            PlayerView(player: player, debugging: isDebugging)
             RifffIngestion(document: $document, baseURL: baseURL)
-    //        DocumentDebugView(document: document, player: player)
+            if isDebugging{
+                DocumentDebugView(document: document, player: player)
+            }
         }
         .navigationBarHidden(true)
         .statusBar(hidden: true)
+        .overlay(Button(action: { isDebugging.toggle()} ){
+            Image(systemName: "ladybug.fill")
+                .padding()
+                .background(isDebugging ? Color.yellow : Color.clear)
+                .cornerRadius(10)
+        }, alignment: .bottomTrailing)
     }
 }
 
