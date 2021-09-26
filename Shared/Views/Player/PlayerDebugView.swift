@@ -13,23 +13,26 @@ struct PlayerDebugView: View {
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible()),
+        GridItem(.flexible()),
     ]
     
     @ObservedObject var player: Player
     var playerDebugging: String
     
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 20){
-            ForEach(player.slots){ slot in
-                SlotView(slot: slot)
+        VStack(spacing: 0){
+            LazyVGrid(columns: columns, spacing: 10){
+                ForEach(player.slots){ slot in
+                    SlotView(slot: slot)
+                }
+            }.frame(maxWidth: .infinity).padding()
+            HStack {
+                Text(playerDebugging)
+                Spacer()
+            }.padding()
+            if player.error != nil {
+                Text(player.error ?? "").foregroundColor(.red)
             }
-        }.frame(maxWidth: .infinity).padding()
-        HStack {
-            Text(playerDebugging)
-            Spacer()
-        }.padding()
-        if player.error != nil {
-            Text(player.error ?? "").foregroundColor(.red)
         }
     }
 }

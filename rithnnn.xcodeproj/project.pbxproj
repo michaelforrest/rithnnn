@@ -21,6 +21,7 @@
 		AC07D14B2700964700C04118 /* Loop.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D14A2700964700C04118 /* Loop.swift */; };
 		AC07D14D2700980800C04118 /* RifffIngestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D14C2700980800C04118 /* RifffIngestion.swift */; };
 		AC07D14F27009F1700C04118 /* PlayerDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D14E27009F1700C04118 /* PlayerDebugView.swift */; };
+		AC07D1512700A10B00C04118 /* AVKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07D1502700A10B00C04118 /* AVKit+Extensions.swift */; };
 		AC46939A26ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip in Resources */ = {isa = PBXBuildFile; fileRef = AC46939926ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip */; };
 		AC6DB8CE26EDDCF80058139D /* ShareHomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8CD26EDDCF80058139D /* ShareHomeTableViewController.swift */; };
 		AC6DB8D626EDDDCC0058139D /* RootNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6DB8D526EDDDCC0058139D /* RootNavViewController.swift */; };
@@ -106,6 +107,7 @@
 		AC07D14A2700964700C04118 /* Loop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loop.swift; sourceTree = "<group>"; };
 		AC07D14C2700980800C04118 /* RifffIngestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RifffIngestion.swift; sourceTree = "<group>"; };
 		AC07D14E27009F1700C04118 /* PlayerDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDebugView.swift; sourceTree = "<group>"; };
+		AC07D1502700A10B00C04118 /* AVKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVKit+Extensions.swift"; sourceTree = "<group>"; };
 		AC46939926ECEAC60083485E /* Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "Timing Accuracy Tests - michaelforrest - 140BPM - 2021-09-11-14-46.zip"; sourceTree = "<group>"; };
 		AC6DB8CD26EDDCF80058139D /* ShareHomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareHomeTableViewController.swift; sourceTree = "<group>"; };
 		AC6DB8D526EDDDCC0058139D /* RootNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavViewController.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				ACE2AF4C26ECBB6E00775DB1 /* Player.swift */,
 				AC07D1482700960000C04118 /* Slot.swift */,
 				AC07D14A2700964700C04118 /* Loop.swift */,
+				AC07D1502700A10B00C04118 /* AVKit+Extensions.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -645,6 +648,7 @@
 				ACE2AE2626EC961700775DB1 /* RithnnnDocument.swift in Sources */,
 				AC07D1402700926E00C04118 /* Document+RifffIngestion.swift in Sources */,
 				AC07D13C2700925000C04118 /* Manifest.swift in Sources */,
+				AC07D1512700A10B00C04118 /* AVKit+Extensions.swift in Sources */,
 				ACE2AE2426EC961700775DB1 /* RithnnnApp.swift in Sources */,
 				ACE2AF5426ECBB7B00775DB1 /* Player.swift in Sources */,
 				AC07D147270094FE00C04118 /* RithnnnDocumentView.swift in Sources */,

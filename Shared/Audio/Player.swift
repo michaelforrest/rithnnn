@@ -8,14 +8,6 @@
 import Foundation
 import AVKit
 
-extension AVAudioPCMBuffer{
-    var lengthInSeconds:TimeInterval{
-        let frameCount = Double(frameLength)
-        let sampleRate = format.sampleRate
-        return TimeInterval(frameCount / sampleRate)
-    }
-}
-
 class Player: ObservableObject{
     @Published var error: String?
 
@@ -23,23 +15,22 @@ class Player: ObservableObject{
     let TapBufferFrames:AVAudioFrameCount = 512
         
     let engine = AVAudioEngine()
-    @Published var slots = (0..<9).map{ _ in Slot() }
+    @Published var slots = (0..<8).map{ _ in Slot() }
     
     var outputMeterLevel: Float = 0
-    
-    var timeInBars: TimeInterval{
-        (AVAudioTime.seconds(forHostTime: mach_absolute_time()) - self.startTimeInSeconds) / (document.barLength)
-    }
-    var barPosition: TimeInterval{
-        self.timeInBars.truncatingRemainder(dividingBy: 1.0)
-    }
     
     private var document: RithnnnDocument
     private var baseURL: URL
     
     var debugString: String {
         engine.isRunning ?
-            "\(timeInBars)\n\(AVAudioTime.seconds(forHostTime: slots.first?.node.lastRenderTime?.hostTime ?? 0))\n\(AVAudioTime.seconds(forHostTime: nextBarStartTime()?.hostTime ?? 0))" : "Not Running"
+        "\(timeInBars(hostTime: mach_absolute_time()))\n\(AVAudioTime.seconds(forHostTime: slots.first?.node.lastRenderTime?.hostTime ?? 0))\n\(AVAudioTime.seconds(forHostTime: nextBarStartTime(hostTime: mach_absolute_time())?.hostTime ?? 0))" : "Not Running"
+    }
+    
+
+    init(document: RithnnnDocument, baseURL: URL){
+        self.document = document
+        self.baseURL = baseURL
     }
     
     func url(for rifff: Rifff, loop: Rifff.Loop)->URL{
@@ -49,12 +40,6 @@ class Player: ObservableObject{
             .appendingPathComponent(loop.filename)
     }
     
-    init(document: RithnnnDocument, baseURL: URL){
-        self.document = document
-        self.baseURL = baseURL
-    }
-    
-    // https://stackoverflow.com/a/52960011/191991
     func play() throws {
         guard let firstRifff = document.manifest.rifffs.first,
               let firstLoop = firstRifff.loops.first else { return }
@@ -70,17 +55,39 @@ class Player: ObservableObject{
         let busFormat = engine.mainMixerNode.outputFormat(forBus: 0)
         engine.mainMixerNode.removeTap(onBus: 0)
         
+        let barLengthInFrames:Int64 = Int64(document.barLength * exampleLoop.file.processingFormat.sampleRate)
+        
         engine.mainMixerNode.installTap(onBus: 0, bufferSize: TapBufferFrames, format: busFormat) { buffer, time in
             let arraySize = Int(buffer.frameLength)
             let samples = Array(UnsafeBufferPointer(start: buffer.floatChannelData![0], count:arraySize))
             let total = samples.reduce(0, +)
             self.outputMeterLevel = Float(total) / Float(buffer.frameLength)
             
+            if let startTime = self.startTime {
+                if (time.sampleTime - startTime.sampleTime) % barLengthInFrames < Int64(buffer.frameLength){
+//                    print("SCHEDULE NEXT BAR CHANGES START:",startTime.sampleTime, "BAR", barLengthInFrames, "BUF",buffer.frameLength,"TIME", time.sampleTime, "RESULT", (time.sampleTime - startTime.sampleTime) % barLengthInFrames)
+                    self.scheduleBarChanges()
+                }
+            }
         }
+        
         engine.prepare()
         try engine.start()
         
-        let startTime = nextBarStartTime() ?? AVAudioTime(hostTime: mach_absolute_time())
+        try playFirstFewLoops()
+        objectWillChange.send()
+    }
+    
+    func timeInBars(hostTime: UInt64)-> TimeInterval{
+        (AVAudioTime.seconds(forHostTime: hostTime) - self.startTimeInSeconds) / (document.barLength)
+    }
+    func barPosition(hostTime: UInt64) -> TimeInterval{
+        self.timeInBars(hostTime: hostTime).truncatingRemainder(dividingBy: 1.0)
+    }
+    
+    
+    func playFirstFewLoops() throws{
+        let startTime = nextBarStartTime(hostTime: mach_absolute_time()) ?? AVAudioTime(hostTime: mach_absolute_time())
         slots.forEach { slot in
             slot.node.play(at: startTime)
         }
@@ -98,8 +105,8 @@ class Player: ObservableObject{
                 }
             }
         }
-        objectWillChange.send()
     }
+    
     
     func stopAndClear(){
         engine.stop()
@@ -116,7 +123,7 @@ class Player: ObservableObject{
     
     func replaceRandom(with loop: Rifff.Loop, rifff: Rifff) throws{
         if let slot = slots.first(where: { $0.playing == nil }) ?? slots.randomElement(){
-            let nextStartTime = nextBarStartTime()
+            let nextStartTime = nextBarStartTime(hostTime: mach_absolute_time())
             slot.replace(with: try Loop(url: url(for: rifff, loop: loop), loop: loop), at: nextStartTime!) // will be nil if nothing playing though
         }
         objectWillChange.send()
@@ -124,9 +131,9 @@ class Player: ObservableObject{
     
     var startTimeInSeconds: TimeInterval{ AVAudioTime.seconds(forHostTime: startTime?.hostTime ?? 0) }
     
-    func nextBarStartTime()->AVAudioTime?{
+    func nextBarStartTime(hostTime: UInt64)->AVAudioTime?{
         let doc = document
-        let secondsPlaying = AVAudioTime.seconds(forHostTime: mach_absolute_time()) - startTimeInSeconds
+        let secondsPlaying = AVAudioTime.seconds(forHostTime: hostTime) - startTimeInSeconds
         let overhang = secondsPlaying.truncatingRemainder(dividingBy: doc.barLength)
         let anchor = secondsPlaying - overhang
         let nextTime = anchor + doc.barLength
@@ -156,6 +163,11 @@ class Player: ObservableObject{
             slot.upddateLoopPosition()
         }
     }
+    
+    func scheduleBarChanges(){
+        
+    }
+    
 }
 
 extension RithnnnDocument{

@@ -15,8 +15,10 @@ struct RifffIngestion: View {
     var body: some View {
         Text(status).onAppear{
             document.processInboundFiles(onStartProcessing: {url in
+                self.status = "Processing \(url.lastPathComponent)"
                 document.unprocessedZips.append(url)
             }){ rifff in
+                self.status = "Ingested \(rifff.zipURL.lastPathComponent)"
                 withAnimation {
                     document.manifest.rifffs.append(rifff)
                     if let index =  document.unprocessedZips.firstIndex(of: rifff.zipURL){

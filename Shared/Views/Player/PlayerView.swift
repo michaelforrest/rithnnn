@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlayerView: View {
     @ObservedObject var player: Player
-    var debugging: Bool
+    @Binding var debugging: Bool
     
     // FIXME: change to display link instead of 1/60
     let timer = Timer.publish(every: 1/60, on: .main, in: .common).autoconnect()
@@ -18,12 +18,9 @@ struct PlayerView: View {
 
     var body: some View {
         VStack{
-            
-            Rectangle()
-                .fill(Color.green)
-                .frame(maxWidth: .infinity)
-                .frame(height: 2)
-                .scaleEffect(x: CGFloat(barPosition), y: 1, anchor: .leading)
+            ProgressCircle(progress: barPosition)
+                .foregroundColor(barPosition < 0 ? .orange : .green)
+                .frame(width: 260, height: 260)
                 
             if debugging{
                 PlayerDebugView(player: player, playerDebugging: playerDebugging)
@@ -34,7 +31,7 @@ struct PlayerView: View {
         })
         .onReceive(timer, perform: { _ in
             self.meterLevel = CGFloat(player.outputMeterLevel)
-            self.barPosition = player.barPosition
+            self.barPosition = player.barPosition(hostTime: mach_absolute_time())
             player.updateSlotPositions()
             self.updateDebugInfo()
         })

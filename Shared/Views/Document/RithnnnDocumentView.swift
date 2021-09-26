@@ -24,13 +24,16 @@ struct RithnnnDocumentView: View {
     }
     
     var body: some View {
-        ScrollView{
-            PlayerView(player: player, debugging: isDebugging)
+        VStack{
+            Spacer()
+            PlayerView(player: player, debugging: $isDebugging)
             RifffIngestion(document: $document, baseURL: baseURL)
             if isDebugging{
                 DocumentDebugView(document: document, player: player)
             }
+            Spacer()
         }
+        .frame(maxWidth: .infinity)
         .navigationBarHidden(true)
         .statusBar(hidden: true)
         .overlay(Button(action: { isDebugging.toggle()} ){

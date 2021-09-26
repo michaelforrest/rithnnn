@@ -12,7 +12,7 @@ struct DocumentDebugView: View {
     var player: Player
 
     var body: some View {
-        VStack {
+        ScrollView {
             ForEach(document.unprocessedZips, id: \.self){ url in
                 HStack{
                     Image(systemName: "doc.zipper")

@@ -23,6 +23,7 @@ struct SlotView:View{
                 .multilineTextAlignment(.center)
                     
                 , alignment: .center)
+            .transformEffect(.init(scaleX: 0.6, y: 0.6))
             .onTapGesture {
                 slot.clear()
             }
