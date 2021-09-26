@@ -27,7 +27,7 @@ struct ProgressCircle: Shape{
             endAngle: Angle(degrees: (360 * progress) - 90),
             clockwise: false
         )
-        return p.strokedPath(.init(lineWidth: 3, lineCap: .round, dash: [3, 5], dashPhase: 0))
+        return p.strokedPath(.init(lineWidth: 3, lineCap: .round, dash: progress < 0 ? [3, 5] : [1], dashPhase: 0))
     }
 }
 
@@ -36,7 +36,7 @@ struct SlotView:View{
     var body: some View{
         ProgressCircle(progress: slot.loopPosition)
             .frame(width: 100, height: 100)
-            .foregroundColor(.red)
+            .foregroundColor(slot.loopPosition < 0 ? .orange : .green)
             .overlay(
                 VStack {
                     Text(slot.playing?.loop.number ?? "").font(.largeTitle)

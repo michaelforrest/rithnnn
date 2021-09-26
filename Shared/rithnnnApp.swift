@@ -17,6 +17,7 @@ struct rithnnnApp: App {
         DocumentGroup(newDocument: rithnnnDocument()) { file in
             ContentView(document: file.$document, player: player, baseURL: file.fileURL!)
                 .onAppear{
+                    print("file url", file.fileURL!.absoluteString.removingPercentEncoding!)
                     RithnnnAppGroup.syncDocumentInfo()
                 }
         }
