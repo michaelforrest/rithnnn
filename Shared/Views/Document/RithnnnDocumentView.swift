@@ -36,7 +36,7 @@ struct RithnnnDocumentView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity)
-        .navigationBarHidden(true)
+//        .navigationBarHidden(true)
         .statusBar(hidden: true)
         
         .overlay(Button(action: { isDebugging.toggle()} ){
@@ -46,12 +46,12 @@ struct RithnnnDocumentView: View {
                 .cornerRadius(10)
         }, alignment: .bottomTrailing)
         
-        .overlay(Button(action: {
-            presentationMode.wrappedValue.dismiss()
-            UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true) // HACKLET
-        }){
-            Image(systemName: "chevron.backward").padding()
-        }, alignment: .topLeading)
+//        .overlay(Button(action: {
+//            presentationMode.wrappedValue.dismiss()
+//            UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true) // HACKLET
+//        }){
+//            Image(systemName: "chevron.backward").padding()
+//        }, alignment: .topLeading)
     }
 }
 
