@@ -17,92 +17,51 @@ extension AVAudioPCMBuffer{
 }
 
 class Player: ObservableObject{
-    struct Loop{
-        let url: URL
-        let buffer: AVAudioPCMBuffer
-        let file: AVAudioFile
-        let loop: Rifff.Loop
-        let lengthInSeconds: TimeInterval
-        init(url: URL, loop: Rifff.Loop) throws{
-            self.url = url
-            self.loop = loop
-            let file = try AVAudioFile(forReading: url)
-            self.file = file
-            let frameCount = AVAudioFrameCount(file.length) // from AVAudioFramePosition
-            self.buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: frameCount)!
-            try file.read(into: buffer)
-            self.lengthInSeconds = buffer.lengthInSeconds
-        }
-    }
-    class Slot: ObservableObject, Identifiable{
-        let node = AVAudioPlayerNode()
-        @Published var playing: Loop?
-        @Published var loopPosition: TimeInterval = 0
-        var id = UUID()
-        var startTime: AVAudioTime?
-        
-        func replace(with loop: Loop, at time: AVAudioTime){
-            self.playing = loop
-            self.startTime = time
-//            node.scheduleFile(loop.file, at: time, completionHandler: nil)
-            node.scheduleBuffer(loop.buffer, at: time, options: .loops, completionHandler: nil)
-            node.play()
-        }
-        
-        func clear(){
-            playing = nil
-            node.stop()
-        }
-        func upddateLoopPosition(){
-            if let loop = playing, let startTime = startTime{
-                loopPosition = ( (AVAudioTime.seconds(forHostTime: mach_absolute_time()) - AVAudioTime.seconds(forHostTime: startTime.hostTime)) / loop.lengthInSeconds).truncatingRemainder(dividingBy: 1.0)
-            }else{
-                loopPosition = 0
-            }
-        }
-    }
-
     @Published var error: String?
 
     var startTime: AVAudioTime?
     let TapBufferFrames:AVAudioFrameCount = 512
-    
-    
+        
     let engine = AVAudioEngine()
     @Published var slots = (0..<9).map{ _ in Slot() }
     
     var outputMeterLevel: Float = 0
     
     var timeInBars: TimeInterval{
-        (AVAudioTime.seconds(forHostTime: mach_absolute_time()) - self.startTimeInSeconds) / (document?.barLength ?? 1.0)
+        (AVAudioTime.seconds(forHostTime: mach_absolute_time()) - self.startTimeInSeconds) / (document.barLength)
     }
     var barPosition: TimeInterval{
         self.timeInBars.truncatingRemainder(dividingBy: 1.0)
     }
     
-    var document: RithnnnDocument?
+    private var document: RithnnnDocument
+    private var baseURL: URL
     
     var debugString: String {
         engine.isRunning ?
             "\(timeInBars)\n\(AVAudioTime.seconds(forHostTime: slots.first?.node.lastRenderTime?.hostTime ?? 0))\n\(AVAudioTime.seconds(forHostTime: nextBarStartTime()?.hostTime ?? 0))" : "Not Running"
     }
     
-    func url(_ baseURL:URL, rifff: Rifff, loop: Rifff.Loop)->URL{
+    func url(for rifff: Rifff, loop: Rifff.Loop)->URL{
         baseURL
             .appendingPathComponent("Audio")
             .appendingPathComponent(rifff.dirName)
             .appendingPathComponent(loop.filename)
     }
     
+    init(document: RithnnnDocument, baseURL: URL){
+        self.document = document
+        self.baseURL = baseURL
+    }
+    
     // https://stackoverflow.com/a/52960011/191991
-    func play(set: RithnnnDocument, baseURL: URL) throws {
-        guard let firstRifff = set.manifest.rifffs.first,
+    func play() throws {
+        guard let firstRifff = document.manifest.rifffs.first,
               let firstLoop = firstRifff.loops.first else { return }
         
         engine.stop()
         // take a random loop, assuming all loops have the same audio settings, just to get the engine set up correctly.
-        let exampleLoop = try Loop(url: self.url(baseURL, rifff: firstRifff, loop: firstLoop), loop: firstLoop)
-        self.document = set
+        let exampleLoop = try Loop(url: self.url(for: firstRifff, loop: firstLoop), loop: firstLoop)
         slots.forEach { slot in
             engine.attach(slot.node)
             engine.connect(slot.node, to: engine.mainMixerNode, format: exampleLoop.file.processingFormat) // so that's where we get the audio format
@@ -126,9 +85,9 @@ class Player: ObservableObject{
             slot.node.play(at: startTime)
         }
         self.startTime = startTime
-        let flatLoops = set.manifest.rifffs.flatMap{$0.loops}
+        let flatLoops = document.manifest.rifffs.flatMap{$0.loops}
         for (index, slot) in slots.enumerated(){
-            let urls = set.manifest.rifffs.flatMap{ rifff in rifff.loops.map{ self.url(baseURL, rifff: rifff, loop: $0) } }
+            let urls = document.manifest.rifffs.flatMap{ rifff in rifff.loops.map{ self.url(for: rifff, loop: $0) } }
             if index < urls.count{
                 let url:URL? = urls[index]
                 if let url = url{
@@ -155,10 +114,10 @@ class Player: ObservableObject{
         slots.compactMap{$0.playing?.url}.contains(url)
     }
     
-    func replaceRandom(with loop: Rifff.Loop, rifff: Rifff, baseURL: URL) throws{
+    func replaceRandom(with loop: Rifff.Loop, rifff: Rifff) throws{
         if let slot = slots.first(where: { $0.playing == nil }) ?? slots.randomElement(){
             let nextStartTime = nextBarStartTime()
-            slot.replace(with: try Loop(url: url(baseURL, rifff: rifff, loop: loop), loop: loop), at: nextStartTime!) // will be nil if nothing playing though
+            slot.replace(with: try Loop(url: url(for: rifff, loop: loop), loop: loop), at: nextStartTime!) // will be nil if nothing playing though
         }
         objectWillChange.send()
     }
@@ -166,7 +125,7 @@ class Player: ObservableObject{
     var startTimeInSeconds: TimeInterval{ AVAudioTime.seconds(forHostTime: startTime?.hostTime ?? 0) }
     
     func nextBarStartTime()->AVAudioTime?{
-        guard let doc = document else { return nil }
+        let doc = document
         let secondsPlaying = AVAudioTime.seconds(forHostTime: mach_absolute_time()) - startTimeInSeconds
         let overhang = secondsPlaying.truncatingRemainder(dividingBy: doc.barLength)
         let anchor = secondsPlaying - overhang

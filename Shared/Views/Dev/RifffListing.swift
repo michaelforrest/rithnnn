@@ -11,7 +11,6 @@ import SwiftUI
 struct RifffListing: View{
     var rifff: Rifff
     var player: Player
-    var baseURL: URL
     var body: some View{
         HStack{
             Image(systemName: "doc.zipper")
@@ -33,7 +32,7 @@ struct RifffListing: View{
                 if player.isPlaying(loop: loop){
                     player.stop(loop: loop)
                 }else{
-                    try? player.replaceRandom(with: loop,rifff: rifff, baseURL: baseURL)
+                    try? player.replaceRandom(with: loop,rifff: rifff)
                 }
             }
         }
