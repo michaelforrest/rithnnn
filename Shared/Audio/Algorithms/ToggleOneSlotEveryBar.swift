@@ -23,6 +23,11 @@ class ToggleOneSlotEveryBar: ObservableObject, Algorithm{
     
     func scheduleChanges(at time: AVAudioTime, on player: Player, document: RithnnnDocument) throws{
         changeCountdown -= 1
+        if changeCountdown % 4 == 0{
+            player.run(at: time) {
+                player.slots.filter({ $0.currentAudioLoop != nil }).randomElement()?.toggleMuted()
+            }
+        }
         if changeCountdown <= 0{
             changeCountdown = [8,16,32].randomElement()!
             if let rifff = document.manifest.rifffs.randomElement(){
@@ -31,10 +36,7 @@ class ToggleOneSlotEveryBar: ObservableObject, Algorithm{
                 }
                 self.currentRifff = rifff
             }
-        }else if changeCountdown % 4 == 0{
-            player.run(at: time) {
-                player.slots.filter({ $0.currentAudioLoop != nil }).randomElement()?.toggleMuted()
-            }
         }
+        
     }
 }
